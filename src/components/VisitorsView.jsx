@@ -96,16 +96,15 @@ export default function VisitorsView({ data }) {
               <BarChart
                 layout="vertical"
                 data={perfil_visitantes}
-                margin={{ top: 5, right: 15, left: -10, bottom: 5 }}
+                margin={{ top: 5, right: 15, left: 10, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
                 <XAxis type="number" tick={{ fontSize: 10, fill: '#64748b' }} />
                 <YAxis 
                   dataKey="name" 
                   type="category" 
-                  tick={{ fontSize: 9.5, fill: '#334155' }} 
-                  width={110} 
-                  tickFormatter={(val) => val.length > 18 ? val.substring(0, 16) + '...' : val}
+                  tick={{ fontSize: 10, fill: '#334155' }} 
+                  width={140} 
                 />
                 <Tooltip 
                   formatter={(value) => [`${value} participantes`, 'Quantidade']}
@@ -143,10 +142,10 @@ export default function VisitorsView({ data }) {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={origem_visitantes}
-                margin={{ top: 10, right: 10, left: -25, bottom: 5 }}
+                margin={{ top: 10, right: 15, left: 0, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="name" tick={{ fontSize: 9.5, fill: '#64748b' }} />
+                <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#64748b' }} />
                 <YAxis tick={{ fontSize: 10, fill: '#64748b' }} />
                 <Tooltip 
                   formatter={(value) => [`${value} visitantes`, 'Total']}

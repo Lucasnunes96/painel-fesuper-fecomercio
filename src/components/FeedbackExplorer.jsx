@@ -217,7 +217,7 @@ export default function FeedbackExplorer({ feedbacks, tagsSummary }) {
                       }`}>
                         {fb.tipo}
                       </span>
-                      <span className="font-semibold text-slate-700 truncate max-w-[130px] sm:max-w-[200px]" title={fb.empresa_ou_perfil}>
+                      <span className="font-semibold text-slate-700 truncate max-w-[140px] sm:max-w-xs md:max-w-md" title={fb.empresa_ou_perfil}>
                         {fb.empresa_ou_perfil}
                       </span>
                     </div>

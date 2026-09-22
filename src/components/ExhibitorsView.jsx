@@ -296,7 +296,7 @@ export default function ExhibitorsView({ data }) {
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
                 <XAxis type="number" tick={{ fontSize: 10, fill: '#64748b' }} />
-                <YAxis dataKey="name" type="category" tick={{ fontSize: 9.5, fill: '#334155' }} width={110} />
+                <YAxis dataKey="name" type="category" tick={{ fontSize: 10, fill: '#334155' }} width={135} />
                 <Tooltip 
                   formatter={(value) => [`${value} empresas`, 'Quantidade']}
                   contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
@@ -333,10 +333,10 @@ export default function ExhibitorsView({ data }) {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={contatos_expositores}
-                margin={{ top: 10, right: 15, left: -20, bottom: 20 }}
+                margin={{ top: 10, right: 15, left: 0, bottom: 20 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="name" tick={{ fontSize: 9.5, fill: '#64748b' }} interval={0} angle={-10} textAnchor="end" />
+                <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#64748b' }} interval={0} angle={-10} textAnchor="end" />
                 <YAxis tick={{ fontSize: 10, fill: '#64748b' }} />
                 <Tooltip 
                   formatter={(value) => [`${value} empresas`, 'Total']}

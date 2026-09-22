@@ -147,13 +147,13 @@ export default function DataGridExport({ expositores, visitantes, onExportCSV })
                   
                   {activeDataset === 'expositores' ? (
                     <>
-                      <td className="py-2.5 px-3 font-semibold text-slate-900 max-w-[150px] truncate" title={row.empresa}>
+                      <td className="py-2.5 px-3 font-semibold text-slate-900 max-w-[150px] sm:max-w-[200px] lg:max-w-xs truncate" title={row.empresa}>
                         {row.empresa}
                       </td>
-                      <td className="py-2.5 px-3 text-slate-600 max-w-[140px] truncate" title={row.segmento}>
+                      <td className="py-2.5 px-3 text-slate-600 max-w-[140px] sm:max-w-[180px] lg:max-w-xs truncate" title={row.segmento}>
                         {row.segmento}
                       </td>
-                      <td className="py-2.5 px-3 text-slate-600">{row.origem_macro}</td>
+                      <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{row.origem_macro}</td>
                       <td className="py-2.5 px-3 text-center font-bold text-slate-900">
                         {row.experiencia_geral !== null ? row.experiencia_geral : '-'}
                       </td>
@@ -168,17 +168,17 @@ export default function DataGridExport({ expositores, visitantes, onExportCSV })
                           {row.nps_categoria}
                         </span>
                       </td>
-                      <td className="py-2.5 px-3 max-w-[240px] truncate text-slate-500 italic" title={row.abaixo_expectativas || row.sugestao_melhoria}>
+                      <td className="py-2.5 px-3 max-w-[240px] sm:max-w-sm lg:max-w-md truncate text-slate-500 italic" title={row.abaixo_expectativas || row.sugestao_melhoria}>
                         {row.abaixo_expectativas || row.sugestao_melhoria || '-'}
                       </td>
                     </>
                   ) : (
                     <>
-                      <td className="py-2.5 px-3 font-semibold text-slate-900 max-w-[160px] truncate" title={row.perfil_participante}>
+                      <td className="py-2.5 px-3 font-semibold text-slate-900 max-w-[160px] sm:max-w-[200px] lg:max-w-xs truncate" title={row.perfil_participante}>
                         {row.perfil_participante}
                       </td>
-                      <td className="py-2.5 px-3 text-slate-600">{row.municipio_macro}</td>
-                      <td className="py-2.5 px-3 text-slate-600">{row.primeira_vez}</td>
+                      <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{row.municipio_macro}</td>
+                      <td className="py-2.5 px-3 text-slate-600 whitespace-nowrap">{row.primeira_vez}</td>
                       <td className="py-2.5 px-3 text-center font-bold text-slate-900">
                         {row.experiencia_geral !== null ? row.experiencia_geral : '-'}
                       </td>
@@ -193,7 +193,7 @@ export default function DataGridExport({ expositores, visitantes, onExportCSV })
                           {row.nps_categoria}
                         </span>
                       </td>
-                      <td className="py-2.5 px-3 max-w-[240px] truncate text-slate-500 italic" title={row.abaixo_expectativas || row.sugestao_melhoria}>
+                      <td className="py-2.5 px-3 max-w-[240px] sm:max-w-sm lg:max-w-md truncate text-slate-500 italic" title={row.abaixo_expectativas || row.sugestao_melhoria}>
                         {row.abaixo_expectativas || row.sugestao_melhoria || '-'}
                       </td>
                     </>

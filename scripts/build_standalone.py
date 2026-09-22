@@ -114,55 +114,80 @@ html_template = f'''<!DOCTYPE html>
 
   <!-- Header -->
   <header class="bg-gradient-to-r from-[#002B55] via-[#023e73] to-[#033B2E] text-white shadow-md sticky top-0 z-40 border-b border-blue-950/40">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3.5 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 md:gap-4">
-      <div class="flex items-center justify-between gap-3">
-        <div class="flex items-center gap-2 sm:gap-3">
-          <div class="bg-white p-1.5 sm:p-2 rounded-xl flex items-center justify-center h-11 sm:h-14 w-28 sm:w-40 shadow-sm">
-            <img src="data:image/png;base64,{logo_fec_b64}" alt="Fecomércio AL" class="max-h-full max-w-full object-contain">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3.5">
+      
+      <!-- Layout Mobile (< md) -->
+      <div class="flex flex-col gap-2.5 md:hidden">
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <div class="bg-white p-1.5 rounded-xl flex items-center justify-center h-11 w-28 shadow-sm">
+              <img src="data:image/png;base64,{logo_fec_b64}" alt="Fecomércio AL" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="h-7 w-px bg-white/20"></div>
+            <div class="bg-white/10 p-1 rounded-xl border border-white/15 flex items-center justify-center h-11 w-28">
+              <img src="data:image/png;base64,{logo_fes_b64}" alt="FESUPER 2026" class="max-h-full max-w-full object-contain drop-shadow">
+            </div>
           </div>
-          <div class="h-7 sm:h-8 w-px bg-white/20"></div>
-          <div class="bg-white/10 p-1 rounded-xl border border-white/15 flex items-center justify-center h-11 sm:h-14 w-28 sm:w-40">
-            <img src="data:image/png;base64,{logo_fes_b64}" alt="FESUPER 2026" class="max-h-full max-w-full object-contain drop-shadow">
+          <div class="flex items-center gap-1.5 shrink-0">
+            <button onclick="exportCSV()" class="p-2 bg-white/15 hover:bg-white/25 text-white rounded-lg border border-white/20 text-xs" title="Exportar CSV">📥</button>
+            <button onclick="window.print()" class="p-2 bg-[#C97A00] hover:bg-amber-600 text-white rounded-lg text-xs" title="Imprimir">🖨️</button>
+            <button onclick="handleLogout()" class="p-2 bg-slate-900/70 hover:bg-red-900/80 text-white rounded-lg text-xs" title="Sair">🚪</button>
+          </div>
+        </div>
+        <div>
+          <span class="bg-[#059669] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">24ª Edição • Arapiraca/AL</span>
+          <h1 class="text-sm font-bold text-white leading-snug mt-1">Painel Integrado de Satisfação e Resultados</h1>
+          <p class="text-[11px] text-slate-200">Sistema Fecomércio Sesc Senac AL & ASA</p>
+        </div>
+      </div>
+
+      <!-- Layout Desktop (md+) -->
+      <div class="hidden md:flex items-center justify-between gap-4 lg:gap-6">
+        <div class="flex items-center gap-4 lg:gap-5 min-w-0">
+          <div class="flex items-center gap-3 shrink-0">
+            <div class="bg-white p-2 rounded-xl flex items-center justify-center h-14 lg:h-16 w-36 lg:w-44 shadow-sm">
+              <img src="data:image/png;base64,{logo_fec_b64}" alt="Fecomércio AL" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="h-10 w-px bg-white/20"></div>
+            <div class="bg-white/10 p-1.5 rounded-xl border border-white/15 flex items-center justify-center h-14 lg:h-16 w-36 lg:w-44">
+              <img src="data:image/png;base64,{logo_fes_b64}" alt="FESUPER 2026" class="max-h-full max-w-full object-contain drop-shadow">
+            </div>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2">
+              <span class="bg-[#059669] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">24ª Edição • Arapiraca/AL</span>
+              <span class="bg-[#C97A00] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">Relatório Oficial</span>
+            </div>
+            <h1 class="text-lg lg:text-xl font-bold text-white mt-1 leading-snug">Painel Integrado de Satisfação e Resultados</h1>
+            <p class="text-xs text-slate-200">Sistema Fecomércio Sesc Senac AL & Associação dos Supermercados de Alagoas (ASA)</p>
           </div>
         </div>
 
-        <!-- Mobile User Badge & Actions -->
-        <div class="flex items-center gap-1.5 md:hidden">
-          <button onclick="exportCSV()" class="p-2 bg-white/15 hover:bg-white/25 text-white rounded-lg border border-white/20 text-xs" title="Exportar CSV">📥</button>
-          <button onclick="window.print()" class="p-2 bg-[#C97A00] hover:bg-amber-600 text-white rounded-lg text-xs" title="Imprimir">🖨️</button>
-          <button onclick="handleLogout()" class="p-2 bg-slate-900/70 hover:bg-red-900/80 text-white rounded-lg text-xs" title="Sair">🚪</button>
-        </div>
-      </div>
-
-      <div class="flex-1 min-w-0">
-        <span class="bg-[#059669] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">24ª Edição • Arapiraca/AL</span>
-        <h1 class="text-sm sm:text-lg font-bold text-white leading-tight truncate sm:whitespace-normal">Painel Integrado de Satisfação e Resultados</h1>
-        <p class="text-[10px] sm:text-[11px] text-slate-200 truncate sm:whitespace-normal">Sistema Fecomércio Sesc Senac AL & ASA</p>
-      </div>
-
-      <div class="hidden md:flex items-center gap-2 shrink-0">
-        <button onclick="exportCSV()" class="bg-white/15 hover:bg-white/25 text-white text-xs font-semibold px-3 py-2 rounded-lg border border-white/20 shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
-          <span>Exportar CSV</span>
-        </button>
-        <button onclick="window.print()" class="bg-[#C97A00] hover:bg-amber-600 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
-          <span>Imprimir Relatório</span>
-        </button>
-        
-        <!-- Badge de Usuário e Logout Desktop -->
-        <div id="headerUserBadge" class="hidden items-center gap-2 bg-slate-900/60 pl-2.5 pr-1.5 py-1.5 rounded-lg border border-white/20">
-          <div id="headerUserAvatar" class="w-5 h-5 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center text-[10px] font-bold">A</div>
-          <div class="text-left leading-none pr-1">
-            <span id="headerUserName" class="block text-[11px] font-bold text-white">admin</span>
-            <span id="headerUserRole" class="block text-[9px] text-slate-300">Admin</span>
+        <div class="flex items-center gap-2 shrink-0">
+          <button onclick="exportCSV()" class="bg-white/15 hover:bg-white/25 text-white text-xs font-semibold px-3 py-2 rounded-lg border border-white/20 shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
+            <span>Exportar CSV</span>
+          </button>
+          <button onclick="window.print()" class="bg-[#C97A00] hover:bg-amber-600 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
+            <span>Imprimir</span>
+          </button>
+          
+          <!-- Badge de Usuário e Logout Desktop -->
+          <div id="headerUserBadge" class="hidden items-center gap-2 bg-slate-900/60 pl-2.5 pr-1.5 py-1.5 rounded-lg border border-white/20">
+            <div id="headerUserAvatar" class="w-5 h-5 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center text-[10px] font-bold">A</div>
+            <div class="text-left leading-none pr-1">
+              <span id="headerUserName" class="block text-[11px] font-bold text-white">admin</span>
+              <span id="headerUserRole" class="block text-[9px] text-slate-300">Admin</span>
+            </div>
+            <button onclick="handleLogout()" class="p-1 text-slate-300 hover:text-red-300 rounded cursor-pointer" title="Encerrar sessão">✕</button>
           </div>
-          <button onclick="handleLogout()" class="p-1 text-slate-300 hover:text-red-300 rounded cursor-pointer" title="Encerrar sessão">✕</button>
         </div>
       </div>
+
     </div>
   </header>
 
   <!-- Barra de Filtros Globais Dinâmicos -->
-  <div class="bg-white border-b border-slate-200 shadow-sm relative sm:sticky sm:top-[74px] z-30 transition-all">
+  <div class="bg-white border-b border-slate-200 shadow-sm">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 flex flex-col md:flex-row md:items-center justify-between gap-2.5 sm:gap-3">
       
       <div class="flex items-center justify-between sm:justify-start gap-2 text-slate-700 font-semibold text-xs uppercase tracking-wider">
@@ -172,7 +197,7 @@ html_template = f'''<!DOCTYPE html>
         </span>
       </div>
 
-      <div class="grid grid-cols-1 sm:flex sm:flex-wrap items-center gap-2 sm:gap-3 text-xs">
+      <div class="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-2 sm:gap-3 text-xs">
         <!-- Público -->
         <div class="flex items-center justify-between sm:justify-start gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5">
           <label class="text-slate-500 font-medium">Público:</label>
@@ -199,15 +224,15 @@ html_template = f'''<!DOCTYPE html>
           <label class="text-slate-500 font-medium">Origem:</label>
           <select id="selFilterOrigem" onchange="applyGlobalFilters()" class="bg-transparent font-semibold text-slate-800 outline-none cursor-pointer text-right sm:text-left">
             <option value="todos">Todas as Regiões</option>
-            <option value="Arapiraca">Arapiraca (Sede)</option>
+            <option value="Arapiraca">Arapiraca (Sede da Feira)</option>
             <option value="Maceió">Maceió (Capital)</option>
             <option value="Demais Municípios de AL">Demais Municípios de AL</option>
-            <option value="Outro Estado (PE/SE/etc)">Outros Estados</option>
+            <option value="Outro Estado (PE/SE/etc)">Outros Estados (PE, SE, etc.)</option>
           </select>
         </div>
 
         <!-- Reset -->
-        <button id="btnResetFilters" onclick="resetGlobalFilters()" class="hidden px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-red-50 hover:bg-red-100 text-red-700 border border-red-200">
+        <button id="btnResetFilters" onclick="resetGlobalFilters()" class="hidden px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 cursor-pointer">
           Limpar Filtros
         </button>
       </div>
@@ -216,7 +241,7 @@ html_template = f'''<!DOCTYPE html>
   </div>
 
   <!-- Navigation Tabs -->
-  <nav class="bg-white border-b border-slate-200 shadow-sm no-print relative sm:sticky sm:top-[128px] z-20">
+  <nav class="bg-white border-b border-slate-200 shadow-sm no-print">
     <div class="max-w-7xl mx-auto px-2 sm:px-6 flex space-x-1 sm:space-x-2 overflow-x-auto py-2 sm:py-2.5 scrollbar-none touch-pan-x">
       <button onclick="switchTab('executiva')" id="tab-btn-executiva" class="tab-btn px-2.5 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-xl whitespace-nowrap bg-[#002B55] text-white shadow-sm">
         Visão Executiva
@@ -315,6 +340,30 @@ html_template = f'''<!DOCTYPE html>
           <div class="h-64 flex items-center justify-center">
             <canvas id="chartNpsDonut"></canvas>
           </div>
+        </div>
+      </div>
+
+      <!-- 4 Sínteses Estruturais do Relatório Técnico -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-50 text-[#059669] flex items-center justify-center font-bold text-xs">01</div>
+          <h4 class="text-xs sm:text-sm font-bold text-slate-800">Alta Conversão Comercial</h4>
+          <p class="text-[11px] sm:text-xs text-slate-600 leading-relaxed"><strong>90,3% dos expositores</strong> e <strong>59,0% dos visitantes</strong> concretizaram ou pretendem firmar negócios resultantes do evento.</p>
+        </div>
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="w-8 h-8 rounded-lg bg-blue-50 text-[#004B8D] flex items-center justify-center font-bold text-xs">02</div>
+          <h4 class="text-xs sm:text-sm font-bold text-slate-800">Mobilização de Equipes</h4>
+          <p class="text-[11px] sm:text-xs text-slate-600 leading-relaxed">Média de <strong>10,9 profissionais por empresa</strong> (mediana de 7; ~591 representantes declarados), com forte presença regional e interestadual.</p>
+        </div>
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-red-200 bg-red-50/20 shadow-sm space-y-2">
+          <div class="w-8 h-8 rounded-lg bg-red-100 text-red-700 flex items-center justify-center font-bold text-xs">03</div>
+          <h4 class="text-xs sm:text-sm font-bold text-slate-800">Estrutura e Energia Elétrica</h4>
+          <p class="text-[11px] sm:text-xs text-slate-600 leading-relaxed">Quesito com menor avaliação (média <strong>7,89</strong>). Expositores demandam climatização contínua e maior potência elétrica para refrigeração.</p>
+        </div>
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-amber-200 bg-amber-50/20 shadow-sm space-y-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-xs">04</div>
+          <h4 class="text-xs sm:text-sm font-bold text-slate-800">59,3% Renovação de Público</h4>
+          <p class="text-[11px] sm:text-xs text-slate-600 leading-relaxed">A maioria compareceu pela 1ª vez. Demanda consolidada para atrair ainda mais proprietários de mercadinhos e padarias do interior alagoano.</p>
         </div>
       </div>
 

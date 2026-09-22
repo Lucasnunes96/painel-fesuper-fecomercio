@@ -208,11 +208,11 @@ export default function ExecutiveView({ data, onSelectTab }) {
             </div>
           </div>
 
-          <div className="h-64 sm:h-72 w-full">
+          <div className="h-64 sm:h-72 lg:h-80 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={comparativeData}
-                margin={{ top: 15, right: 10, left: -20, bottom: 25 }}
+                margin={{ top: 15, right: 15, left: 0, bottom: 25 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
                 <XAxis 
@@ -222,10 +222,10 @@ export default function ExecutiveView({ data, onSelectTab }) {
                   angle={-10}
                   textAnchor="end"
                   tickFormatter={(val) => {
-                    if (val.includes('Geral')) return 'Exp. Geral'
-                    if (val.includes('Retorno')) return 'Retorno (NPS)'
-                    if (val.includes('Concluídos')) return 'Fechados %'
-                    if (val.includes('Potenciais')) return 'Potenciais %'
+                    if (val.includes('Geral')) return 'Experiência Geral'
+                    if (val.includes('Retorno')) return 'Intenção de Retorno'
+                    if (val.includes('Concluídos')) return 'Negócios Fechados %'
+                    if (val.includes('Potenciais')) return 'Negócios Potenciais %'
                     return val
                   }}
                 />
@@ -260,10 +260,10 @@ export default function ExecutiveView({ data, onSelectTab }) {
             {/* Expositores */}
             <div className="text-center p-2.5 sm:p-3.5 bg-slate-50 rounded-xl border border-slate-200">
               <p className="text-[11px] sm:text-xs font-bold text-fecomercio-blue uppercase">Expositores</p>
-              <div className="h-24 sm:h-28 w-full">
+              <div className="h-28 sm:h-32 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
-                    <Pie data={expNpsData} innerRadius={22} outerRadius={40} dataKey="value">
+                    <Pie data={expNpsData} innerRadius={26} outerRadius={46} dataKey="value">
                       {expNpsData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
@@ -279,10 +279,10 @@ export default function ExecutiveView({ data, onSelectTab }) {
             {/* Visitantes */}
             <div className="text-center p-2.5 sm:p-3.5 bg-slate-50 rounded-xl border border-slate-200">
               <p className="text-[11px] sm:text-xs font-bold text-fesuper-emerald uppercase">Visitantes</p>
-              <div className="h-24 sm:h-28 w-full">
+              <div className="h-28 sm:h-32 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
-                    <Pie data={visNpsData} innerRadius={22} outerRadius={40} dataKey="value">
+                    <Pie data={visNpsData} innerRadius={26} outerRadius={46} dataKey="value">
                       {visNpsData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
@@ -312,8 +312,8 @@ export default function ExecutiveView({ data, onSelectTab }) {
 
       </div>
 
-      {/* Strategic Takeaways & Operational Pillars */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* 4 Sínteses Estruturais do Relatório Técnico */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
           <div className="w-8 h-8 rounded-lg bg-emerald-50 text-fesuper-emerald flex items-center justify-center font-bold text-xs">
@@ -331,7 +331,7 @@ export default function ExecutiveView({ data, onSelectTab }) {
           </div>
           <h4 className="text-xs sm:text-sm font-bold text-slate-800">Mobilização de Equipes</h4>
           <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed">
-            Média de <strong>10,9 profissionais por empresa</strong> (mediana de 7; ~591 representantes declarados), com forte presença de Arapiraca, Maceió e outros estados.
+            Média de <strong>10,9 profissionais por empresa</strong> (mediana de 7; ~591 representantes declarados), com forte presença regional e interestadual.
           </p>
         </div>
 
@@ -342,6 +342,16 @@ export default function ExecutiveView({ data, onSelectTab }) {
           <h4 className="text-xs sm:text-sm font-bold text-slate-800">Estrutura e Energia Elétrica</h4>
           <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed">
             Quesito com menor avaliação (média <strong>7,89</strong>). Expositores demandam climatização contínua e maior potência elétrica para refrigeração.
+          </p>
+        </div>
+
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-amber-200 bg-amber-50/20 shadow-sm space-y-2">
+          <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-xs">
+            04
+          </div>
+          <h4 className="text-xs sm:text-sm font-bold text-slate-800">59,3% Renovação de Público</h4>
+          <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed">
+            A maioria compareceu pela 1ª vez. Demanda consolidada para atrair ainda mais proprietários de mercadinhos e padarias do interior alagoano.
           </p>
         </div>
 

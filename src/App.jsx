@@ -153,7 +153,7 @@ export default function App() {
       )}
 
       {/* Navigation Tabs Bar */}
-      <nav aria-label="Navegação do painel" className="bg-white border-b border-slate-200 shadow-sm no-print relative sm:sticky sm:top-[128px] z-20">
+      <nav aria-label="Navegação do painel" className="bg-white border-b border-slate-200 shadow-sm no-print">
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
           <div className="flex space-x-1 sm:space-x-2 overflow-x-auto py-2 sm:py-2.5 scrollbar-none touch-pan-x">
             {tabs.map((tab) => {

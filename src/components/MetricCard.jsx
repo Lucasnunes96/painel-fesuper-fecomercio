@@ -35,9 +35,9 @@ export default function MetricCard({
     <div className={`bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-200 hover:shadow-md transition-shadow relative overflow-hidden ${borderColors[variant] || ''}`}>
       <div className="flex items-start justify-between gap-2.5">
         <div className="flex-1 min-w-0">
-          <p className="text-[11px] sm:text-xs font-semibold text-slate-700 tracking-wide uppercase truncate" title={title}>{title}</p>
+          <p className="text-[11px] sm:text-xs font-semibold text-slate-700 tracking-wide uppercase leading-snug" title={title}>{title}</p>
           <div className="mt-1.5 sm:mt-2 flex flex-wrap items-baseline gap-1.5 sm:gap-2">
-            <span className="text-xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">{value}</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">{value}</span>
             {badge && (
               <span className={`text-[10px] sm:text-[11px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full border ${badgeStyles[badgeType]}`}>
                 {badge}
@@ -45,7 +45,7 @@ export default function MetricCard({
             )}
           </div>
           {subtitle && (
-            <p className="mt-1 text-[11px] sm:text-xs text-slate-600 font-medium leading-relaxed">{subtitle}</p>
+            <p className="mt-1 sm:mt-1.5 text-[11px] sm:text-xs text-slate-600 font-medium leading-relaxed">{subtitle}</p>
           )}
         </div>
         {Icon && (
