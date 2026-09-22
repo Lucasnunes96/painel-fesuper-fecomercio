@@ -319,7 +319,7 @@ export default function ExecutiveView({ data, onSelectTab }) {
           </div>
           <h4 className="text-sm font-bold text-slate-800">Mobilização de Equipes</h4>
           <p className="text-xs text-slate-600 leading-relaxed">
-            Média de <strong>5,2 profissionais por estande</strong> (~320 representantes no pavilhão), com forte presença de Maceió, Arapiraca e empresas de outros estados.
+            Média de <strong>10,9 profissionais por empresa</strong> (mediana de 7; ~591 representantes declarados), com forte presença de Arapiraca, Maceió e outros estados.
           </p>
         </div>
 

@@ -104,9 +104,9 @@ export default function ExhibitorsView({ data }) {
         />
 
         <MetricCard
-          title="Equipe Média por Estande"
-          value="5,2"
-          subtitle="~320 profissionais atuando diretamente no evento"
+          title="Equipe Média por Empresa"
+          value="10,9"
+          subtitle="Mediana de 7 (591 representantes declarados por 54 empresas)"
           badge="Mobilização"
           badgeType="neutral"
           icon={Users}

@@ -406,8 +406,9 @@ output_payload = {
             'detratores_qtd': exp_det,
             'negocios_efetivos_pct': 22.6,
             'negocios_efetivos_ou_potenciais_pct': 90.3,
-            'equipe_media_por_estande': 5.2,
-            'total_profissionais_estimados': 320
+            'equipe_media_por_estande': 10.9,
+            'equipe_mediana_por_estande': 7,
+            'total_profissionais_informados': 591
         },
         'visitantes': {
             'nps': vis_nps,
