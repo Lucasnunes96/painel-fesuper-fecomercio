@@ -29,6 +29,17 @@ Painel analítico e executivo interativo desenvolvido para visualização dos re
 
 ---
 
+## 🔐 Controle de Acesso e Credenciais
+
+O painel conta com autenticação de acesso institucional para proteger os dados estratégicos da feira:
+
+| Usuário | Senha | Perfil | Permissões |
+| :--- | :--- | :--- | :--- |
+| **`admin`** | `datamacro2026` | Administrador Geral | Acesso irrestrito a todos os módulos, filtros, cruzamentos e exportação |
+| **`usuario`** | `fesuper2026` | Usuário Analista | Acesso a todos os módulos executivos, gráficos dinâmicos e consultas |
+
+---
+
 ## 🚀 Como Executar o Projeto
 
 ### Pré-requisitos

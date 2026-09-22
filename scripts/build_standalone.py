@@ -59,6 +59,59 @@ html_template = f'''<!DOCTYPE html>
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col">
 
+  <!-- Modal / Tela de Login Independente -->
+  <div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900 font-sans">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#002B55] via-[#023e73] to-[#033B2E] opacity-95"></div>
+    <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 sm:p-10 relative z-10 border border-slate-100">
+      
+      <div class="flex items-center justify-center gap-4 mb-6">
+        <div class="bg-slate-50 p-2 rounded-xl border border-slate-200 shadow-sm flex items-center justify-center h-14 w-36">
+          <img src="data:image/png;base64,{logo_fec_b64}" alt="Fecomércio AL" class="max-h-full max-w-full object-contain">
+        </div>
+        <div class="h-8 w-px bg-slate-200"></div>
+        <div class="bg-slate-900 p-2 rounded-xl border border-slate-700 shadow-sm flex items-center justify-center h-14 w-36 overflow-hidden">
+          <img src="data:image/png;base64,{logo_fes_b64}" alt="FESUPER 2026" class="max-h-full max-w-full object-contain drop-shadow">
+        </div>
+      </div>
+
+      <div class="text-center mb-6">
+        <span class="inline-block bg-emerald-50 text-[#059669] text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-emerald-200">
+          Acesso Restrito • FESUPER 2026
+        </span>
+        <h2 class="text-xl font-bold text-slate-800 tracking-tight">Painel de Indicadores e Resultados</h2>
+        <p class="text-xs text-slate-500 mt-1">Sistema Fecomércio Sesc Senac AL & ASA Supermercados</p>
+      </div>
+
+      <div id="loginErrorMsg" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xs font-medium"></div>
+
+      <form id="standaloneLoginForm" onsubmit="handleLoginSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Usuário de Acesso</label>
+          <input type="text" id="loginUsername" placeholder="Ex: admin ou usuario" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 outline-none focus:ring-2 focus:ring-[#004B8D]">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Senha</label>
+          <div class="relative">
+            <input type="password" id="loginPassword" placeholder="Digite sua senha" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 outline-none focus:ring-2 focus:ring-[#004B8D]">
+            <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 text-xs" title="Alternar visualização">👁️</button>
+          </div>
+        </div>
+        <button type="submit" class="w-full mt-2 bg-gradient-to-r from-[#002B55] to-[#004B8D] hover:from-[#002244] hover:to-[#003b70] text-white text-xs font-bold py-3 px-4 rounded-xl shadow-md transition-all cursor-pointer">
+          Entrar no Painel
+        </button>
+      </form>
+
+      <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+        <span>Ambiente Seguro • ASA / Fecomércio</span>
+        <span>Versão 2.4</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Dashboard Wrapper (Protegido por Login) -->
+  <div id="dashboardWrapper" class="hidden flex-1 flex flex-col min-h-screen">
+
   <!-- Header -->
   <header class="bg-gradient-to-r from-[#002B55] via-[#023e73] to-[#033B2E] text-white shadow-md sticky top-0 z-40 border-b border-blue-950/40">
     <div class="max-w-7xl mx-auto px-4 py-3.5 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-4">
@@ -84,6 +137,16 @@ html_template = f'''<!DOCTYPE html>
         <button onclick="window.print()" class="bg-[#C97A00] hover:bg-amber-600 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow-sm transition-all flex items-center gap-1.5">
           <span>Imprimir Relatório</span>
         </button>
+        
+        <!-- Badge de Usuário e Logout -->
+        <div id="headerUserBadge" class="hidden items-center gap-2 bg-slate-900/60 pl-2.5 pr-1.5 py-1.5 rounded-lg border border-white/20">
+          <div id="headerUserAvatar" class="w-5 h-5 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center text-[10px] font-bold">A</div>
+          <div class="text-left leading-none pr-1">
+            <span id="headerUserName" class="block text-[11px] font-bold text-white">admin</span>
+            <span id="headerUserRole" class="block text-[9px] text-slate-300">Admin</span>
+          </div>
+          <button onclick="handleLogout()" class="p-1 text-slate-300 hover:text-red-300 rounded cursor-pointer" title="Encerrar sessão">✕</button>
+        </div>
       </div>
     </div>
   </header>
@@ -897,8 +960,81 @@ html_template = f'''<!DOCTYPE html>
       }});
 
       applyGlobalFilters();
+      checkSession();
     }});
+
+    const AUTH_USERS = {{
+      'admin': {{ password: 'datamacro2026', role: 'admin', label: 'Administrador' }},
+      'usuario': {{ password: 'fesuper2026', role: 'usuario', label: 'Usuário Analista' }}
+    }};
+
+    function checkSession() {{
+      const saved = sessionStorage.getItem('fesuper_auth_user');
+      if (saved) {{
+        try {{
+          const u = JSON.parse(saved);
+          if (AUTH_USERS[u.username]) {{
+            showDashboard(u);
+            return;
+          }}
+        }} catch (e) {{}}
+      }}
+      document.getElementById('loginScreen').classList.remove('hidden');
+      document.getElementById('dashboardWrapper').classList.add('hidden');
+    }}
+
+    function handleLoginSubmit(e) {{
+      e.preventDefault();
+      const u = document.getElementById('loginUsername').value.trim().toLowerCase();
+      const p = document.getElementById('loginPassword').value.trim();
+      const errDiv = document.getElementById('loginErrorMsg');
+
+      if (AUTH_USERS[u] && AUTH_USERS[u].password === p) {{
+        errDiv.classList.add('hidden');
+        const userObj = {{ username: u, role: AUTH_USERS[u].role, label: AUTH_USERS[u].label }};
+        sessionStorage.setItem('fesuper_auth_user', JSON.stringify(userObj));
+        showDashboard(userObj);
+      }} else {{
+        errDiv.textContent = 'Usuário ou senha inválidos. Verifique os dados digitados.';
+        errDiv.classList.remove('hidden');
+      }}
+    }}
+
+    function showDashboard(userObj) {{
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('dashboardWrapper').classList.remove('hidden');
+      const badge = document.getElementById('headerUserBadge');
+      if (badge) {{
+        badge.classList.remove('hidden');
+        badge.classList.add('flex');
+        document.getElementById('headerUserName').textContent = userObj.username;
+        document.getElementById('headerUserRole').textContent = userObj.role === 'admin' ? 'Admin' : 'Usuário';
+        document.getElementById('headerUserAvatar').textContent = userObj.role === 'admin' ? 'A' : 'U';
+        document.getElementById('headerUserAvatar').className = userObj.role === 'admin' 
+          ? 'w-5 h-5 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center text-[10px] font-bold'
+          : 'w-5 h-5 rounded-full bg-emerald-400 text-slate-900 flex items-center justify-center text-[10px] font-bold';
+      }}
+    }}
+
+    function handleLogout() {{
+      sessionStorage.removeItem('fesuper_auth_user');
+      document.getElementById('loginUsername').value = '';
+      document.getElementById('loginPassword').value = '';
+      document.getElementById('dashboardWrapper').classList.add('hidden');
+      document.getElementById('loginScreen').classList.remove('hidden');
+      const badge = document.getElementById('headerUserBadge');
+      if (badge) {{
+        badge.classList.add('hidden');
+        badge.classList.remove('flex');
+      }}
+    }}
+
+    function togglePasswordVisibility() {{
+      const input = document.getElementById('loginPassword');
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }}
   </script>
+  </div> <!-- /dashboardWrapper -->
 </body>
 </html>
 '''

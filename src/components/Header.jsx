@@ -1,7 +1,7 @@
 import React from 'react'
-import { Calendar, MapPin, Users, Printer, Download, Building2, TrendingUp } from 'lucide-react'
+import { Calendar, MapPin, Users, Printer, Download, LogOut, ShieldCheck, User } from 'lucide-react'
 
-export default function Header({ metadata, activeTab, onExportCSV }) {
+export default function Header({ metadata, activeTab, onExportCSV, currentUser, onLogout }) {
   const handlePrint = () => {
     window.print()
   }
@@ -73,7 +73,7 @@ export default function Header({ metadata, activeTab, onExportCSV }) {
                 title="Exportar base completa para planilha Excel/CSV"
               >
                 <Download className="w-3.5 h-3.5 text-emerald-300" />
-                <span>Exportar CSV</span>
+                <span className="hidden sm:inline">Exportar CSV</span>
               </button>
 
               <button 
@@ -82,8 +82,39 @@ export default function Header({ metadata, activeTab, onExportCSV }) {
                 title="Imprimir relatório executivo"
               >
                 <Printer className="w-3.5 h-3.5" />
-                <span>Imprimir</span>
+                <span className="hidden sm:inline">Imprimir</span>
               </button>
+
+              {/* Perfil do Usuário e Logout */}
+              {currentUser && (
+                <div className="flex items-center gap-2 bg-slate-900/60 backdrop-blur-md pl-2.5 pr-1.5 py-1.5 rounded-lg border border-white/20 shadow-inner">
+                  <div className="flex items-center gap-1.5">
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
+                      currentUser.role === 'admin' 
+                        ? 'bg-amber-400 text-slate-900' 
+                        : 'bg-emerald-400 text-slate-900'
+                    }`}>
+                      {currentUser.role === 'admin' ? 'A' : 'U'}
+                    </div>
+                    <div className="text-left leading-none pr-1">
+                      <span className="block text-[11px] font-bold text-white tracking-wide">
+                        {currentUser.username}
+                      </span>
+                      <span className="block text-[9px] text-slate-300">
+                        {currentUser.role === 'admin' ? 'Admin' : 'Usuário'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={onLogout}
+                    className="p-1 text-slate-300 hover:text-red-300 hover:bg-red-500/20 rounded transition-all active:scale-90"
+                    title="Encerrar sessão (Logout)"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              )}
             </div>
 
           </div>

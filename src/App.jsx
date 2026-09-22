@@ -7,6 +7,7 @@ import VisitorsView from './components/VisitorsView'
 import FeedbackExplorer from './components/FeedbackExplorer'
 import StrategicPlanView from './components/StrategicPlanView'
 import DataGridExport from './components/DataGridExport'
+import LoginPage from './components/LoginPage'
 import dashboardData from './data/dashboard_data.json'
 import { filterAndRecalculateData } from './utils/filterData'
 
@@ -16,12 +17,39 @@ import {
 } from 'lucide-react'
 
 export default function App() {
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const saved = sessionStorage.getItem('fesuper_auth_user')
+      return saved ? JSON.parse(saved) : null
+    } catch {
+      return null
+    }
+  })
+
   const [activeTab, setActiveTab] = useState('executiva')
   const [filters, setFilters] = useState({
     publico: 'todos',
     npsCat: 'todos',
     origem: 'todos'
   })
+
+  const handleLogin = (user) => {
+    setCurrentUser(user)
+    try {
+      sessionStorage.setItem('fesuper_auth_user', JSON.stringify(user))
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const handleLogout = () => {
+    setCurrentUser(null)
+    try {
+      sessionStorage.removeItem('fesuper_auth_user')
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   // Recálculo dinâmico e reativo de todos os dados com base nos filtros
   const dynamicData = useMemo(() => {
@@ -76,6 +104,10 @@ export default function App() {
     { id: 'dados', label: 'Tabela de Dados & Auditoria', icon: Table, count: stats.filteredCount }
   ]
 
+  if (!currentUser) {
+    return <LoginPage onLogin={handleLogin} />
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       
@@ -84,6 +116,8 @@ export default function App() {
         metadata={dynamicData.metadata} 
         activeTab={activeTab}
         onExportCSV={handleExportCSV}
+        currentUser={currentUser}
+        onLogout={handleLogout}
       />
 
       {/* Global Filter Bar */}
