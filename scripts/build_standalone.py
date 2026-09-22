@@ -142,32 +142,32 @@ html_template = f'''<!DOCTYPE html>
       </div>
 
       <!-- Layout Desktop (md+) -->
-      <div class="hidden md:flex items-center justify-between gap-4 lg:gap-6">
-        <div class="flex items-center gap-4 lg:gap-5 min-w-0">
-          <div class="flex items-center gap-3 shrink-0">
-            <div class="bg-white p-2 rounded-xl flex items-center justify-center h-14 lg:h-16 w-36 lg:w-44 shadow-sm">
+      <div class="hidden md:flex items-center justify-between gap-3 lg:gap-5">
+        <div class="flex items-center gap-3 lg:gap-4 flex-1 min-w-0">
+          <div class="flex items-center gap-2 lg:gap-3 shrink-0">
+            <div class="bg-white p-1.5 lg:p-2 rounded-xl flex items-center justify-center h-12 lg:h-14 w-28 lg:w-36 shadow-sm">
               <img src="data:image/png;base64,{logo_fec_b64}" alt="Fecomércio AL" class="max-h-full max-w-full object-contain">
             </div>
-            <div class="h-10 w-px bg-white/20"></div>
-            <div class="bg-white/10 p-1.5 rounded-xl border border-white/15 flex items-center justify-center h-14 lg:h-16 w-36 lg:w-44">
+            <div class="h-8 lg:h-9 w-px bg-white/20"></div>
+            <div class="bg-white/10 p-1 lg:p-1.5 rounded-xl border border-white/15 flex items-center justify-center h-12 lg:h-14 w-28 lg:w-36 overflow-hidden">
               <img src="data:image/png;base64,{logo_fes_b64}" alt="FESUPER 2026" class="max-h-full max-w-full object-contain drop-shadow">
             </div>
           </div>
-          <div class="min-w-0">
-            <div class="flex items-center gap-2">
-              <span class="bg-[#059669] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">24ª Edição • Arapiraca/AL</span>
-              <span class="bg-[#C97A00] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">Relatório Oficial</span>
+          <div class="flex-1 min-w-[280px]">
+            <div class="flex items-center gap-1.5 lg:gap-2">
+              <span class="bg-[#059669] text-white text-[10px] lg:text-[11px] font-bold px-2 lg:px-2.5 py-0.5 rounded-full uppercase tracking-wider shrink-0">24ª Edição • Arapiraca/AL</span>
+              <span class="bg-[#C97A00] text-white text-[10px] lg:text-[11px] font-bold px-2 lg:px-2.5 py-0.5 rounded-full uppercase tracking-wider shrink-0">Relatório Oficial</span>
             </div>
-            <h1 class="text-lg lg:text-xl font-bold text-white mt-1 leading-snug">Painel Integrado de Satisfação e Resultados</h1>
-            <p class="text-xs text-slate-200">Sistema Fecomércio Sesc Senac AL & Associação dos Supermercados de Alagoas (ASA)</p>
+            <h1 class="text-sm lg:text-base xl:text-lg font-bold text-white mt-0.5 leading-snug whitespace-normal xl:whitespace-nowrap">Painel Integrado de Satisfação e Resultados</h1>
+            <p class="text-[11px] lg:text-xs text-slate-200 leading-tight">Sistema Fecomércio Sesc Senac AL & Associação dos Supermercados de Alagoas (ASA)</p>
           </div>
         </div>
 
         <div class="flex items-center gap-2 shrink-0">
-          <button onclick="exportCSV()" class="bg-white/15 hover:bg-white/25 text-white text-xs font-semibold px-3 py-2 rounded-lg border border-white/20 shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
+          <button onclick="exportCSV()" class="bg-white/15 hover:bg-white/25 text-white text-xs font-semibold px-2.5 lg:px-3 py-1.5 lg:py-2 rounded-lg border border-white/20 shadow-sm transition-all flex items-center gap-1.5 cursor-pointer shrink-0">
             <span>Exportar CSV</span>
           </button>
-          <button onclick="window.print()" class="bg-[#C97A00] hover:bg-amber-600 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
+          <button onclick="window.print()" class="bg-[#C97A00] hover:bg-amber-600 text-white text-xs font-semibold px-2.5 lg:px-3 py-1.5 lg:py-2 rounded-lg shadow-sm transition-all flex items-center gap-1.5 cursor-pointer shrink-0">
             <span>Imprimir</span>
           </button>
           

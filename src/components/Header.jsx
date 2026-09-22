@@ -91,21 +91,21 @@ export default function Header({ metadata, activeTab, onExportCSV, currentUser, 
         </div>
 
         {/* === LAYOUT DESKTOP / TABLET (md+) === */}
-        <div className="hidden md:flex items-center justify-between gap-4 lg:gap-6">
+        <div className="hidden md:flex items-center justify-between gap-3 lg:gap-5">
           
           {/* Lado Esquerdo: Logos + Identidade Institucional Completa */}
-          <div className="flex items-center gap-4 lg:gap-5 min-w-0">
+          <div className="flex items-center gap-3 lg:gap-4 flex-1 min-w-0">
             {/* Logos */}
-            <div className="flex items-center gap-3 shrink-0">
-              <div className="bg-white p-2 rounded-xl shadow-sm flex items-center justify-center h-14 lg:h-16 w-36 lg:w-44">
+            <div className="flex items-center gap-2 lg:gap-3 shrink-0">
+              <div className="bg-white p-1.5 lg:p-2 rounded-xl shadow-sm flex items-center justify-center h-12 lg:h-14 w-28 lg:w-36">
                 <img 
                   src="/assets/logo_fecomercio.png" 
                   alt="Fecomércio AL" 
                   className="max-h-full max-w-full object-contain"
                 />
               </div>
-              <div className="h-10 w-px bg-white/20"></div>
-              <div className="bg-white/10 backdrop-blur-sm p-1.5 rounded-xl border border-white/15 flex items-center justify-center h-14 lg:h-16 w-36 lg:w-44 overflow-hidden">
+              <div className="h-8 lg:h-9 w-px bg-white/20"></div>
+              <div className="bg-white/10 backdrop-blur-sm p-1 lg:p-1.5 rounded-xl border border-white/15 flex items-center justify-center h-12 lg:h-14 w-28 lg:w-36 overflow-hidden">
                 <img 
                   src="/assets/logo_fesuper.png" 
                   alt="FESUPER 2026" 
@@ -115,27 +115,27 @@ export default function Header({ metadata, activeTab, onExportCSV, currentUser, 
             </div>
 
             {/* Títulos e Badges */}
-            <div className="min-w-0">
-              <div className="flex items-center gap-2">
-                <span className="bg-fesuper-emerald text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+            <div className="flex-1 min-w-[280px]">
+              <div className="flex items-center gap-1.5 lg:gap-2">
+                <span className="bg-fesuper-emerald text-white text-[10px] lg:text-[11px] font-bold px-2 lg:px-2.5 py-0.5 rounded-full uppercase tracking-wider shrink-0">
                   24ª Edição • Arapiraca/AL
                 </span>
-                <span className="bg-fecomercio-gold text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                <span className="bg-fecomercio-gold text-white text-[10px] lg:text-[11px] font-bold px-2 lg:px-2.5 py-0.5 rounded-full uppercase tracking-wider shrink-0">
                   Relatório Oficial
                 </span>
               </div>
-              <h1 className="text-lg lg:text-xl font-bold tracking-tight text-white mt-1 leading-snug">
+              <h1 className="text-sm lg:text-base xl:text-lg font-bold tracking-tight text-white mt-0.5 leading-snug whitespace-normal xl:whitespace-nowrap">
                 Painel Integrado de Satisfação e Resultados
               </h1>
-              <p className="text-xs text-slate-200">
+              <p className="text-[11px] lg:text-xs text-slate-200 leading-tight">
                 Sistema Fecomércio Sesc Senac AL & Associação dos Supermercados de Alagoas (ASA)
               </p>
             </div>
           </div>
 
-          {/* Lado Direito: Metadados + Ações Rápidas + Usuário */}
-          <div className="flex items-center gap-3 shrink-0">
-            <div className="hidden xl:flex items-center gap-3 text-xs text-slate-200 bg-white/10 px-3 py-2 rounded-xl border border-white/10">
+          {/* Lado Direito: Metadados (em telas ultra-largas) + Ações Rápidas + Usuário */}
+          <div className="flex items-center gap-2 lg:gap-3 shrink-0">
+            <div className="hidden 2xl:flex items-center gap-3 text-xs text-slate-200 bg-white/10 px-3 py-2 rounded-xl border border-white/10">
               <div className="flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-fesuper-emerald" />
                 <span>Arapiraca - AL</span>
@@ -153,7 +153,7 @@ export default function Header({ metadata, activeTab, onExportCSV, currentUser, 
             <div className="flex items-center gap-2">
               <button 
                 onClick={onExportCSV}
-                className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-semibold px-3 py-2 rounded-lg border border-white/20 transition-all active:scale-95 cursor-pointer"
+                className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-semibold px-2.5 lg:px-3 py-1.5 lg:py-2 rounded-lg border border-white/20 transition-all active:scale-95 cursor-pointer shrink-0"
                 title="Exportar base completa para planilha Excel/CSV"
               >
                 <Download className="w-3.5 h-3.5 text-emerald-300" />
@@ -162,7 +162,7 @@ export default function Header({ metadata, activeTab, onExportCSV, currentUser, 
 
               <button 
                 onClick={handlePrint}
-                className="flex items-center gap-1.5 bg-fecomercio-gold hover:bg-amber-600 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow-sm transition-all active:scale-95 cursor-pointer"
+                className="flex items-center gap-1.5 bg-fecomercio-gold hover:bg-amber-600 text-white text-xs font-semibold px-2.5 lg:px-3 py-1.5 lg:py-2 rounded-lg shadow-sm transition-all active:scale-95 cursor-pointer shrink-0"
                 title="Imprimir relatório executivo"
               >
                 <Printer className="w-3.5 h-3.5" />
