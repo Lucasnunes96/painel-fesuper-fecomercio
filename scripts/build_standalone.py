@@ -60,26 +60,26 @@ html_template = f'''<!DOCTYPE html>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col">
 
   <!-- Modal / Tela de Login Independente -->
-  <div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900 font-sans">
+  <div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900 font-sans">
     <div class="absolute inset-0 bg-gradient-to-br from-[#002B55] via-[#023e73] to-[#033B2E] opacity-95"></div>
-    <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 sm:p-10 relative z-10 border border-slate-100">
+    <div class="w-full max-w-md bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-5 sm:p-8 md:p-10 relative z-10 border border-slate-100">
       
-      <div class="flex items-center justify-center gap-4 mb-6">
-        <div class="bg-slate-50 p-2 rounded-xl border border-slate-200 shadow-sm flex items-center justify-center h-14 w-36">
+      <div class="flex items-center justify-center gap-3 sm:gap-4 mb-5 sm:mb-6">
+        <div class="bg-slate-50 p-2 sm:p-2.5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-center h-12 sm:h-14 w-28 sm:w-36">
           <img src="data:image/png;base64,{logo_fec_b64}" alt="Fecomércio AL" class="max-h-full max-w-full object-contain">
         </div>
-        <div class="h-8 w-px bg-slate-200"></div>
-        <div class="bg-slate-900 p-2 rounded-xl border border-slate-700 shadow-sm flex items-center justify-center h-14 w-36 overflow-hidden">
+        <div class="h-7 sm:h-8 w-px bg-slate-200"></div>
+        <div class="bg-slate-900 p-1.5 sm:p-2 rounded-xl border border-slate-700 shadow-sm flex items-center justify-center h-12 sm:h-14 w-28 sm:w-36 overflow-hidden">
           <img src="data:image/png;base64,{logo_fes_b64}" alt="FESUPER 2026" class="max-h-full max-w-full object-contain drop-shadow">
         </div>
       </div>
 
       <div class="text-center mb-6">
-        <span class="inline-block bg-emerald-50 text-[#059669] text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-emerald-200">
+        <span class="inline-block bg-emerald-50 text-[#059669] text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-emerald-200">
           Acesso Restrito • FESUPER 2026
         </span>
-        <h2 class="text-xl font-bold text-slate-800 tracking-tight">Painel de Indicadores e Resultados</h2>
-        <p class="text-xs text-slate-500 mt-1">Sistema Fecomércio Sesc Senac AL & ASA Supermercados</p>
+        <h2 class="text-lg sm:text-xl font-bold text-slate-800 tracking-tight">Painel de Indicadores e Resultados</h2>
+        <p class="text-[11px] sm:text-xs text-slate-500 mt-1">Sistema Fecomércio Sesc Senac AL & ASA Supermercados</p>
       </div>
 
       <div id="loginErrorMsg" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xs font-medium"></div>
@@ -114,31 +114,41 @@ html_template = f'''<!DOCTYPE html>
 
   <!-- Header -->
   <header class="bg-gradient-to-r from-[#002B55] via-[#023e73] to-[#033B2E] text-white shadow-md sticky top-0 z-40 border-b border-blue-950/40">
-    <div class="max-w-7xl mx-auto px-4 py-3.5 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-4">
-        <div class="bg-white p-2 rounded-xl flex items-center justify-center h-14 w-36 sm:w-44 shadow-sm">
-          <img src="data:image/png;base64,{logo_fec_b64}" alt="Fecomércio AL" class="max-h-full max-w-full object-contain">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3.5 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 md:gap-4">
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2 sm:gap-3">
+          <div class="bg-white p-1.5 sm:p-2 rounded-xl flex items-center justify-center h-11 sm:h-14 w-28 sm:w-40 shadow-sm">
+            <img src="data:image/png;base64,{logo_fec_b64}" alt="Fecomércio AL" class="max-h-full max-w-full object-contain">
+          </div>
+          <div class="h-7 sm:h-8 w-px bg-white/20"></div>
+          <div class="bg-white/10 p-1 rounded-xl border border-white/15 flex items-center justify-center h-11 sm:h-14 w-28 sm:w-40">
+            <img src="data:image/png;base64,{logo_fes_b64}" alt="FESUPER 2026" class="max-h-full max-w-full object-contain drop-shadow">
+          </div>
         </div>
-        <div class="h-8 w-px bg-white/20 hidden sm:block"></div>
-        <div class="bg-white/10 p-1 rounded-xl border border-white/15 flex items-center justify-center h-14 w-36 sm:w-44">
-          <img src="data:image/png;base64,{logo_fes_b64}" alt="FESUPER 2026" class="max-h-full max-w-full object-contain drop-shadow">
-        </div>
-        <div>
-          <span class="bg-[#059669] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">24ª Edição • Arapiraca/AL</span>
-          <h1 class="text-base sm:text-lg font-bold text-white leading-tight">Painel Integrado de Satisfação e Resultados</h1>
-          <p class="text-[11px] text-slate-200">Sistema Fecomércio Sesc Senac AL & Associação dos Supermercados de Alagoas</p>
+
+        <!-- Mobile User Badge & Actions -->
+        <div class="flex items-center gap-1.5 md:hidden">
+          <button onclick="exportCSV()" class="p-2 bg-white/15 hover:bg-white/25 text-white rounded-lg border border-white/20 text-xs" title="Exportar CSV">📥</button>
+          <button onclick="window.print()" class="p-2 bg-[#C97A00] hover:bg-amber-600 text-white rounded-lg text-xs" title="Imprimir">🖨️</button>
+          <button onclick="handleLogout()" class="p-2 bg-slate-900/70 hover:bg-red-900/80 text-white rounded-lg text-xs" title="Sair">🚪</button>
         </div>
       </div>
 
-      <div class="flex items-center gap-2">
-        <button onclick="exportCSV()" class="bg-white/15 hover:bg-white/25 text-white text-xs font-semibold px-3 py-2 rounded-lg border border-white/20 shadow-sm transition-all flex items-center gap-1.5">
+      <div class="flex-1 min-w-0">
+        <span class="bg-[#059669] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">24ª Edição • Arapiraca/AL</span>
+        <h1 class="text-sm sm:text-lg font-bold text-white leading-tight truncate sm:whitespace-normal">Painel Integrado de Satisfação e Resultados</h1>
+        <p class="text-[10px] sm:text-[11px] text-slate-200 truncate sm:whitespace-normal">Sistema Fecomércio Sesc Senac AL & ASA</p>
+      </div>
+
+      <div class="hidden md:flex items-center gap-2 shrink-0">
+        <button onclick="exportCSV()" class="bg-white/15 hover:bg-white/25 text-white text-xs font-semibold px-3 py-2 rounded-lg border border-white/20 shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
           <span>Exportar CSV</span>
         </button>
-        <button onclick="window.print()" class="bg-[#C97A00] hover:bg-amber-600 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow-sm transition-all flex items-center gap-1.5">
+        <button onclick="window.print()" class="bg-[#C97A00] hover:bg-amber-600 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
           <span>Imprimir Relatório</span>
         </button>
         
-        <!-- Badge de Usuário e Logout -->
+        <!-- Badge de Usuário e Logout Desktop -->
         <div id="headerUserBadge" class="hidden items-center gap-2 bg-slate-900/60 pl-2.5 pr-1.5 py-1.5 rounded-lg border border-white/20">
           <div id="headerUserAvatar" class="w-5 h-5 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center text-[10px] font-bold">A</div>
           <div class="text-left leading-none pr-1">
@@ -152,21 +162,21 @@ html_template = f'''<!DOCTYPE html>
   </header>
 
   <!-- Barra de Filtros Globais Dinâmicos -->
-  <div class="bg-white border-b border-slate-200 shadow-sm sticky top-[72px] sm:top-[76px] z-30 transition-all">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex flex-col md:flex-row md:items-center justify-between gap-3">
+  <div class="bg-white border-b border-slate-200 shadow-sm relative sm:sticky sm:top-[74px] z-30 transition-all">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 flex flex-col md:flex-row md:items-center justify-between gap-2.5 sm:gap-3">
       
-      <div class="flex items-center gap-2 text-slate-700 font-semibold text-xs uppercase tracking-wider">
+      <div class="flex items-center justify-between sm:justify-start gap-2 text-slate-700 font-semibold text-xs uppercase tracking-wider">
         <span>Filtros Globais:</span>
-        <span id="filterCountDisplay" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+        <span id="filterCountDisplay" class="text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
           Exibindo 185 de 185 respondentes
         </span>
       </div>
 
-      <div class="flex flex-wrap items-center gap-2 sm:gap-3 text-xs">
+      <div class="grid grid-cols-1 sm:flex sm:flex-wrap items-center gap-2 sm:gap-3 text-xs">
         <!-- Público -->
-        <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5">
+        <div class="flex items-center justify-between sm:justify-start gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5">
           <label class="text-slate-500 font-medium">Público:</label>
-          <select id="selFilterPublico" onchange="applyGlobalFilters()" class="bg-transparent font-semibold text-slate-800 outline-none cursor-pointer">
+          <select id="selFilterPublico" onchange="applyGlobalFilters()" class="bg-transparent font-semibold text-slate-800 outline-none cursor-pointer text-right sm:text-left">
             <option value="todos">Todos os Públicos (185)</option>
             <option value="expositores">Apenas Expositores (62)</option>
             <option value="visitantes">Apenas Visitantes (123)</option>
@@ -174,9 +184,9 @@ html_template = f'''<!DOCTYPE html>
         </div>
 
         <!-- NPS -->
-        <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5">
+        <div class="flex items-center justify-between sm:justify-start gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5">
           <label class="text-slate-500 font-medium">Nota NPS:</label>
-          <select id="selFilterNps" onchange="applyGlobalFilters()" class="bg-transparent font-semibold text-slate-800 outline-none cursor-pointer">
+          <select id="selFilterNps" onchange="applyGlobalFilters()" class="bg-transparent font-semibold text-slate-800 outline-none cursor-pointer text-right sm:text-left">
             <option value="todos">Todas as Notas</option>
             <option value="Promotor">Promotores (Notas 9-10)</option>
             <option value="Neutro">Neutros (Notas 7-8)</option>
@@ -185,9 +195,9 @@ html_template = f'''<!DOCTYPE html>
         </div>
 
         <!-- Origem -->
-        <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5">
+        <div class="flex items-center justify-between sm:justify-start gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5">
           <label class="text-slate-500 font-medium">Origem:</label>
-          <select id="selFilterOrigem" onchange="applyGlobalFilters()" class="bg-transparent font-semibold text-slate-800 outline-none cursor-pointer">
+          <select id="selFilterOrigem" onchange="applyGlobalFilters()" class="bg-transparent font-semibold text-slate-800 outline-none cursor-pointer text-right sm:text-left">
             <option value="todos">Todas as Regiões</option>
             <option value="Arapiraca">Arapiraca (Sede)</option>
             <option value="Maceió">Maceió (Capital)</option>
@@ -206,31 +216,31 @@ html_template = f'''<!DOCTYPE html>
   </div>
 
   <!-- Navigation Tabs -->
-  <nav class="bg-white border-b border-slate-200 shadow-sm no-print">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex space-x-2 overflow-x-auto py-2.5">
-      <button onclick="switchTab('executiva')" id="tab-btn-executiva" class="tab-btn px-3 py-2 text-xs font-bold rounded-xl whitespace-nowrap bg-[#002B55] text-white shadow-sm">
-        Visão Executiva & Síntese
+  <nav class="bg-white border-b border-slate-200 shadow-sm no-print relative sm:sticky sm:top-[128px] z-20">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 flex space-x-1 sm:space-x-2 overflow-x-auto py-2 sm:py-2.5 scrollbar-none touch-pan-x">
+      <button onclick="switchTab('executiva')" id="tab-btn-executiva" class="tab-btn px-2.5 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-xl whitespace-nowrap bg-[#002B55] text-white shadow-sm">
+        Visão Executiva
       </button>
-      <button onclick="switchTab('expositores')" id="tab-btn-expositores" class="tab-btn px-3 py-2 text-xs font-bold rounded-xl whitespace-nowrap text-slate-600 hover:bg-slate-100">
+      <button onclick="switchTab('expositores')" id="tab-btn-expositores" class="tab-btn px-2.5 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-xl whitespace-nowrap text-slate-600 hover:bg-slate-100">
         Expositores (B2B) <span id="tabCountExp" class="bg-slate-200 text-slate-800 text-[10px] px-1.5 py-0.2 rounded-full ml-1">62</span>
       </button>
-      <button onclick="switchTab('visitantes')" id="tab-btn-visitantes" class="tab-btn px-3 py-2 text-xs font-bold rounded-xl whitespace-nowrap text-slate-600 hover:bg-slate-100">
+      <button onclick="switchTab('visitantes')" id="tab-btn-visitantes" class="tab-btn px-2.5 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-xl whitespace-nowrap text-slate-600 hover:bg-slate-100">
         Visitantes (Varejo) <span id="tabCountVis" class="bg-slate-200 text-slate-800 text-[10px] px-1.5 py-0.2 rounded-full ml-1">123</span>
       </button>
-      <button onclick="switchTab('voz_cliente')" id="tab-btn-voz_cliente" class="tab-btn px-3 py-2 text-xs font-bold rounded-xl whitespace-nowrap text-slate-600 hover:bg-slate-100">
+      <button onclick="switchTab('voz_cliente')" id="tab-btn-voz_cliente" class="tab-btn px-2.5 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-xl whitespace-nowrap text-slate-600 hover:bg-slate-100">
         Depoimentos & Críticas <span id="tabCountFb" class="bg-slate-200 text-slate-800 text-[10px] px-1.5 py-0.2 rounded-full ml-1">{len(data['feedbacks'])}</span>
       </button>
-      <button onclick="switchTab('recomendacoes')" id="tab-btn-recomendacoes" class="tab-btn px-3 py-2 text-xs font-bold rounded-xl whitespace-nowrap text-slate-600 hover:bg-slate-100">
+      <button onclick="switchTab('recomendacoes')" id="tab-btn-recomendacoes" class="tab-btn px-2.5 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-xl whitespace-nowrap text-slate-600 hover:bg-slate-100">
         Recomendações Estruturais
       </button>
-      <button onclick="switchTab('dados')" id="tab-btn-dados" class="tab-btn px-3 py-2 text-xs font-bold rounded-xl whitespace-nowrap text-slate-600 hover:bg-slate-100">
+      <button onclick="switchTab('dados')" id="tab-btn-dados" class="tab-btn px-2.5 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-xl whitespace-nowrap text-slate-600 hover:bg-slate-100">
         Tabela de Dados & Auditoria
       </button>
     </div>
   </nav>
 
   <!-- Main Container -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
     
     <!-- ABA 1: VISÃO EXECUTIVA -->
     <section id="tab-executiva" class="tab-pane space-y-6">

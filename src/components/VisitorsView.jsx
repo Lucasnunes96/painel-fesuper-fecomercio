@@ -75,20 +75,20 @@ export default function VisitorsView({ data }) {
       </div>
 
       {/* Grid: Perfil & Origem Geográfica */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         
         {/* Perfil dos Participantes */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div className="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
+              <h3 className="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider">
                 Perfil Declarado dos Visitantes
               </h3>
-              <p className="text-xs text-slate-700">
+              <p className="text-[11px] sm:text-xs text-slate-700">
                 Segmentação funcional no mercado
               </p>
             </div>
-            <UserCheck className="w-4 h-4 text-fecomercio-blue" />
+            <UserCheck className="w-4 h-4 text-fecomercio-blue shrink-0" />
           </div>
 
           <div className="h-64 w-full">
@@ -96,14 +96,20 @@ export default function VisitorsView({ data }) {
               <BarChart
                 layout="vertical"
                 data={perfil_visitantes}
-                margin={{ top: 10, right: 30, left: 40, bottom: 5 }}
+                margin={{ top: 5, right: 15, left: -10, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis type="number" tick={{ fontSize: 11, fill: '#64748b' }} />
-                <YAxis dataKey="name" type="category" tick={{ fontSize: 10, fill: '#334155' }} width={140} />
+                <XAxis type="number" tick={{ fontSize: 10, fill: '#64748b' }} />
+                <YAxis 
+                  dataKey="name" 
+                  type="category" 
+                  tick={{ fontSize: 9.5, fill: '#334155' }} 
+                  width={110} 
+                  tickFormatter={(val) => val.length > 18 ? val.substring(0, 16) + '...' : val}
+                />
                 <Tooltip 
                   formatter={(value) => [`${value} participantes`, 'Quantidade']}
-                  contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                  contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', fontSize: '12px' }}
                 />
                 <Bar dataKey="count" fill="#059669" radius={[0, 6, 6, 0]}>
                   {perfil_visitantes.map((entry, index) => (
@@ -120,31 +126,31 @@ export default function VisitorsView({ data }) {
         </div>
 
         {/* Origem Territorial */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div className="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
+              <h3 className="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider">
                 Origem Territorial dos Visitantes
               </h3>
-              <p className="text-xs text-slate-700">
+              <p className="text-[11px] sm:text-xs text-slate-700">
                 Distribuição por município de procedência
               </p>
             </div>
-            <MapPin className="w-4 h-4 text-fesuper-emerald" />
+            <MapPin className="w-4 h-4 text-fesuper-emerald shrink-0" />
           </div>
 
           <div className="h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={origem_visitantes}
-                margin={{ top: 10, right: 20, left: -10, bottom: 5 }}
+                margin={{ top: 10, right: 10, left: -25, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#64748b' }} />
-                <YAxis tick={{ fontSize: 11, fill: '#64748b' }} />
+                <XAxis dataKey="name" tick={{ fontSize: 9.5, fill: '#64748b' }} />
+                <YAxis tick={{ fontSize: 10, fill: '#64748b' }} />
                 <Tooltip 
                   formatter={(value) => [`${value} visitantes`, 'Total']}
-                  contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                  contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', fontSize: '12px' }}
                 />
                 <Bar dataKey="count" fill="#004B8D" radius={[6, 6, 0, 0]}>
                   {origem_visitantes.map((entry, index) => (
@@ -163,51 +169,51 @@ export default function VisitorsView({ data }) {
       </div>
 
       {/* Grid: Motivos de Participação & Canais de Divulgação */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         
         {/* Motivo Principal */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div className="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
+              <h3 className="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider">
                 Motivos de Participação
               </h3>
-              <p className="text-xs text-slate-700">
+              <p className="text-[11px] sm:text-xs text-slate-700">
                 Fatores determinantes para presença no evento
               </p>
             </div>
-            <HeartHandshake className="w-4 h-4 text-fecomercio-gold" />
+            <HeartHandshake className="w-4 h-4 text-fecomercio-gold shrink-0" />
           </div>
 
-          <div className="space-y-2.5">
+          <div className="space-y-2">
             {motivos_visitantes.map((item, idx) => (
               <div key={idx} className="flex items-center justify-between p-2.5 bg-slate-50 rounded-lg text-xs">
-                <span className="font-semibold text-slate-700">{item.name}</span>
-                <span className="font-bold text-fecomercio-blue">{item.count} ({item.percent}%)</span>
+                <span className="font-semibold text-slate-700 truncate pr-2">{item.name}</span>
+                <span className="font-bold text-fecomercio-blue shrink-0">{item.count} ({item.percent}%)</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Canais de Divulgação */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div className="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
+              <h3 className="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider">
                 Canais de Conhecimento do Evento
               </h3>
-              <p className="text-xs text-slate-700">
+              <p className="text-[11px] sm:text-xs text-slate-700">
                 Fontes que mobilizaram os participantes
               </p>
             </div>
-            <Megaphone className="w-4 h-4 text-fesuper-coral" />
+            <Megaphone className="w-4 h-4 text-fesuper-coral shrink-0" />
           </div>
 
-          <div className="space-y-2.5">
+          <div className="space-y-2">
             {canais_visitantes.map((item, idx) => (
               <div key={idx} className="flex items-center justify-between p-2.5 bg-slate-50 rounded-lg text-xs">
-                <span className="font-semibold text-slate-700">{item.name}</span>
-                <span className="font-bold text-fesuper-emerald">{item.count} ({item.percent}%)</span>
+                <span className="font-semibold text-slate-700 truncate pr-2">{item.name}</span>
+                <span className="font-bold text-fesuper-emerald shrink-0">{item.count} ({item.percent}%)</span>
               </div>
             ))}
           </div>

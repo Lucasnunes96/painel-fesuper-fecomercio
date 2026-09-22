@@ -105,14 +105,14 @@ export default function StrategicPlanView() {
   ]
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       
       {/* Banner */}
-      <div className="bg-gradient-to-r from-[#002B55] via-[#023e73] to-[#033B2E] rounded-2xl p-6 text-white shadow-md border border-slate-800">
-        <span className="bg-fecomercio-gold text-white text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+      <div className="bg-gradient-to-r from-[#002B55] via-[#023e73] to-[#033B2E] rounded-2xl p-4 sm:p-6 text-white shadow-md border border-slate-800">
+        <span className="bg-fecomercio-gold text-white text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
           Planejamento Diretor FESUPER 2027
         </span>
-        <h2 className="text-xl sm:text-2xl font-bold tracking-tight mt-2">
+        <h2 className="text-lg sm:text-2xl font-bold tracking-tight mt-2">
           Diretrizes e Recomendações Estruturais para a 25ª Edição
         </h2>
         <p className="text-slate-200 text-xs sm:text-sm mt-1 max-w-3xl leading-relaxed">
@@ -122,17 +122,17 @@ export default function StrategicPlanView() {
 
       {/* Matriz de Priorização Gerencial */}
       <div className="space-y-3">
-        <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+        <h3 className="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
           <Layers className="w-4 h-4 text-fecomercio-blue" />
           Matriz de Priorização de Intervenções
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           {matrizAcoes.map((bloco, idx) => (
-            <div key={idx} className={`p-5 rounded-2xl border ${bloco.cor} shadow-sm space-y-3`}>
+            <div key={idx} className={`p-4 sm:p-5 rounded-xl sm:rounded-2xl border ${bloco.cor} shadow-sm space-y-3`}>
               <div>
-                <h4 className="text-sm font-bold text-slate-900">{bloco.tipo}</h4>
-                <p className="text-xs text-slate-500 mt-0.5">{bloco.descricao}</p>
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900">{bloco.tipo}</h4>
+                <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5">{bloco.descricao}</p>
               </div>
 
               <ul className="space-y-2 pt-2 border-t border-slate-100">
@@ -150,30 +150,30 @@ export default function StrategicPlanView() {
 
       {/* Os 5 Pilares do Relatório Oficial */}
       <div className="space-y-4">
-        <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+        <h3 className="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
           <Target className="w-4 h-4 text-fesuper-emerald" />
           Os 5 Pilares Estratégicos Fecomércio AL & ASA
         </h3>
 
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-1 gap-3 sm:gap-4">
           {pilares.map((pilar, idx) => (
             <div 
               key={idx}
-              className={`bg-white rounded-2xl p-6 border border-slate-200 shadow-sm border-l-4 ${pilar.cor} space-y-4 hover:shadow-md transition-shadow`}
+              className={`bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 shadow-sm border-l-4 ${pilar.cor} space-y-3 sm:space-y-4 hover:shadow-md transition-shadow`}
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div className="flex items-center gap-3">
-                  <span className="text-lg font-extrabold text-slate-400 font-mono">{pilar.num}</span>
-                  <h4 className="text-base font-bold text-slate-900">{pilar.titulo}</h4>
+                <div className="flex items-center gap-2.5 sm:gap-3">
+                  <span className="text-base sm:text-lg font-extrabold text-slate-400 font-mono">{pilar.num}</span>
+                  <h4 className="text-sm sm:text-base font-bold text-slate-900">{pilar.titulo}</h4>
                 </div>
-                <span className={`text-[11px] font-bold px-3 py-1 rounded-full border self-start sm:self-auto ${pilar.badgeColor}`}>
+                <span className={`text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-1 rounded-full border self-start sm:self-auto ${pilar.badgeColor}`}>
                   {pilar.badge}
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3 pt-2">
                 {pilar.itens.map((it, itIdx) => (
-                  <div key={itIdx} className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-700 leading-relaxed">
+                  <div key={itIdx} className="flex items-start gap-2 p-2.5 sm:p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-700 leading-relaxed">
                     <span className="w-1.5 h-1.5 rounded-full bg-fecomercio-blue shrink-0 mt-1.5"></span>
                     <span>{it}</span>
                   </div>

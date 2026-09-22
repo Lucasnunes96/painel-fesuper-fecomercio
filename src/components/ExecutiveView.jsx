@@ -188,35 +188,48 @@ export default function ExecutiveView({ data, onSelectTab }) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Bar Chart: Benchmarking Expositores vs Visitantes */}
-        <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div className="lg:col-span-2 bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-              <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
+              <h3 className="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider">
                 Comparativo Entre Públicos: Expositores vs. Visitantes
               </h3>
-              <p className="text-xs text-slate-700">
-                Passe o mouse nas barras para ler o contexto qualitativo de cada dimensão
+              <p className="text-[11px] sm:text-xs text-slate-600">
+                Toque ou passe o mouse nas barras para ler o contexto qualitativo
               </p>
             </div>
-            <div className="flex items-center gap-4 text-xs font-semibold">
+            <div className="flex items-center gap-3 text-xs font-semibold">
               <span className="flex items-center gap-1.5 text-slate-700">
-                <span className="w-3 h-3 rounded bg-fecomercio-blue"></span> Expositores
+                <span className="w-2.5 h-2.5 rounded bg-fecomercio-blue"></span> Expositores
               </span>
               <span className="flex items-center gap-1.5 text-slate-700">
-                <span className="w-3 h-3 rounded bg-fesuper-emerald"></span> Visitantes
+                <span className="w-2.5 h-2.5 rounded bg-fesuper-emerald"></span> Visitantes
               </span>
             </div>
           </div>
 
-          <div className="h-72 w-full">
+          <div className="h-64 sm:h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={comparativeData}
-                margin={{ top: 20, right: 20, left: -10, bottom: 5 }}
+                margin={{ top: 15, right: 10, left: -20, bottom: 25 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="dimensao" tick={{ fontSize: 11, fill: '#475569', fontWeight: 500 }} />
-                <YAxis tick={{ fontSize: 11, fill: '#64748b' }} />
+                <XAxis 
+                  dataKey="dimensao" 
+                  tick={{ fontSize: 10, fill: '#475569', fontWeight: 500 }} 
+                  interval={0}
+                  angle={-10}
+                  textAnchor="end"
+                  tickFormatter={(val) => {
+                    if (val.includes('Geral')) return 'Exp. Geral'
+                    if (val.includes('Retorno')) return 'Retorno (NPS)'
+                    if (val.includes('Concluídos')) return 'Fechados %'
+                    if (val.includes('Potenciais')) return 'Potenciais %'
+                    return val
+                  }}
+                />
+                <YAxis tick={{ fontSize: 10, fill: '#64748b' }} />
                 <Tooltip content={<ComparativeCustomTooltip />} />
                 <Bar dataKey="Expositores" fill="#004B8D" radius={[6, 6, 0, 0]} />
                 <Bar dataKey="Visitantes" fill="#059669" radius={[6, 6, 0, 0]} />
@@ -224,33 +237,33 @@ export default function ExecutiveView({ data, onSelectTab }) {
             </ResponsiveContainer>
           </div>
 
-          <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700 flex items-start gap-2.5">
+          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-[11px] sm:text-xs text-slate-700 flex items-start gap-2">
             <Info className="w-4 h-4 text-fecomercio-blue shrink-0 mt-0.5" />
             <p>
-              <strong>Interpretação Executiva:</strong> Enquanto os visitantes avaliaram a feira prioritariamente pela experiência e novidades do varejo (média 9,55 e NPS +92), os expositores (9,05 e NPS +66) ponderaram o investimento financeiro, a montagem e a necessidade de infraestrutura de energia compatível.
+              <strong>Interpretação Executiva:</strong> Enquanto os visitantes avaliaram a feira prioritariamente pela experiência e novidades do varejo (média 9,55 e NPS +92), os expositores (9,05 e NPS +66) ponderaram o investimento financeiro, a montagem e a infraestrutura elétrica compatível.
             </p>
           </div>
         </div>
 
         {/* NPS Breakdown Donut Cards */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4 flex flex-col justify-between">
+        <div className="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4 flex flex-col justify-between">
           <div>
-            <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
+            <h3 className="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider">
               Distribuição do NPS Adaptado
             </h3>
-            <p className="text-xs text-slate-700">
+            <p className="text-[11px] sm:text-xs text-slate-600">
               Proporção de promotores, neutros e detratores
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 my-2">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-4 my-2">
             {/* Expositores */}
-            <div className="text-center p-3.5 bg-slate-50 rounded-xl border border-slate-200">
-              <p className="text-xs font-bold text-fecomercio-blue uppercase">Expositores</p>
-              <div className="h-28 w-full">
+            <div className="text-center p-2.5 sm:p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+              <p className="text-[11px] sm:text-xs font-bold text-fecomercio-blue uppercase">Expositores</p>
+              <div className="h-24 sm:h-28 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
-                    <Pie data={expNpsData} innerRadius={26} outerRadius={44} dataKey="value">
+                    <Pie data={expNpsData} innerRadius={22} outerRadius={40} dataKey="value">
                       {expNpsData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
@@ -259,17 +272,17 @@ export default function ExecutiveView({ data, onSelectTab }) {
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              <p className="text-base font-extrabold text-slate-800">NPS +{exp.nps}</p>
-              <p className="text-[11px] text-slate-700 font-semibold">{exp.promotores_pct}% Promotores</p>
+              <p className="text-sm sm:text-base font-extrabold text-slate-800">NPS +{exp.nps}</p>
+              <p className="text-[10px] sm:text-[11px] text-slate-700 font-semibold">{exp.promotores_pct}% Promotores</p>
             </div>
 
             {/* Visitantes */}
-            <div className="text-center p-3.5 bg-slate-50 rounded-xl border border-slate-200">
-              <p className="text-xs font-bold text-fesuper-emerald uppercase">Visitantes</p>
-              <div className="h-28 w-full">
+            <div className="text-center p-2.5 sm:p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+              <p className="text-[11px] sm:text-xs font-bold text-fesuper-emerald uppercase">Visitantes</p>
+              <div className="h-24 sm:h-28 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
-                    <Pie data={visNpsData} innerRadius={26} outerRadius={44} dataKey="value">
+                    <Pie data={visNpsData} innerRadius={22} outerRadius={40} dataKey="value">
                       {visNpsData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
@@ -278,68 +291,57 @@ export default function ExecutiveView({ data, onSelectTab }) {
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              <p className="text-base font-extrabold text-slate-800">NPS +{vis.nps}</p>
-              <p className="text-[11px] text-slate-700 font-semibold">{vis.promotores_pct}% Promotores</p>
+              <p className="text-sm sm:text-base font-extrabold text-slate-800">NPS +{vis.nps}</p>
+              <p className="text-[10px] sm:text-[11px] text-slate-700 font-semibold">{vis.promotores_pct}% Promotores</p>
             </div>
           </div>
 
           {/* Legenda NPS */}
-          <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600">
+          <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-1 text-[10px] sm:text-[11px] text-slate-600">
             <span className="flex items-center gap-1 font-semibold text-emerald-800">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-600"></span> Promotor (9-10)
+              <span className="w-2 h-2 rounded-full bg-emerald-600"></span> Promotor (9-10)
             </span>
             <span className="flex items-center gap-1 font-semibold text-amber-800">
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-600"></span> Neutro (7-8)
+              <span className="w-2 h-2 rounded-full bg-amber-600"></span> Neutro (7-8)
             </span>
             <span className="flex items-center gap-1 font-semibold text-red-800">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-600"></span> Detrator (0-6)
+              <span className="w-2 h-2 rounded-full bg-red-600"></span> Detrator (0-6)
             </span>
           </div>
-
         </div>
 
       </div>
 
-      {/* 4 Sínteses Estruturais do Relatório Técnico */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Strategic Takeaways & Operational Pillars */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
-          <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold text-xs">
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div className="w-8 h-8 rounded-lg bg-emerald-50 text-fesuper-emerald flex items-center justify-center font-bold text-xs">
             01
           </div>
-          <h4 className="text-sm font-bold text-slate-800">Credenciamento e Recepção</h4>
-          <p className="text-xs text-slate-600 leading-relaxed">
-            Consagrado como o item mais bem avaliado do evento (<strong>9,26 entre expositores com 43 notas 10</strong>). Entrada ágil e atendimento eficiente.
+          <h4 className="text-xs sm:text-sm font-bold text-slate-800">Alta Conversão Comercial</h4>
+          <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed">
+            <strong>90,3% dos expositores</strong> e <strong>59,0% dos visitantes</strong> concretizaram ou pretendem firmar negócios resultantes do evento.
           </p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
           <div className="w-8 h-8 rounded-lg bg-blue-50 text-fecomercio-blue flex items-center justify-center font-bold text-xs">
             02
           </div>
-          <h4 className="text-sm font-bold text-slate-800">Mobilização de Equipes</h4>
-          <p className="text-xs text-slate-600 leading-relaxed">
+          <h4 className="text-xs sm:text-sm font-bold text-slate-800">Mobilização de Equipes</h4>
+          <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed">
             Média de <strong>10,9 profissionais por empresa</strong> (mediana de 7; ~591 representantes declarados), com forte presença de Arapiraca, Maceió e outros estados.
           </p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-red-200 bg-red-50/20 shadow-sm space-y-2">
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-red-200 bg-red-50/20 shadow-sm space-y-2">
           <div className="w-8 h-8 rounded-lg bg-red-100 text-red-700 flex items-center justify-center font-bold text-xs">
             03
           </div>
-          <h4 className="text-sm font-bold text-slate-800">Estrutura e Energia Elétrica</h4>
-          <p className="text-xs text-slate-600 leading-relaxed">
-            <strong>Estrutura e Montagem (7,89)</strong> foi a menor nota. Expositores relataram sobrecarga na rede elétrica com freezers e atraso na montagem no primeiro dia.
-          </p>
-        </div>
-
-        <div className="bg-white p-5 rounded-2xl border border-amber-200 bg-amber-50/20 shadow-sm space-y-2">
-          <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-xs">
-            04
-          </div>
-          <h4 className="text-sm font-bold text-slate-800">59,3% Renovação de Público</h4>
-          <p className="text-xs text-slate-600 leading-relaxed">
-            A maioria compareceu pela 1ª vez. Há demanda consolidada para atrair ainda mais proprietários de mercadinhos e padarias do interior alagoano.
+          <h4 className="text-xs sm:text-sm font-bold text-slate-800">Estrutura e Energia Elétrica</h4>
+          <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed">
+            Quesito com menor avaliação (média <strong>7,89</strong>). Expositores demandam climatização contínua e maior potência elétrica para refrigeração.
           </p>
         </div>
 

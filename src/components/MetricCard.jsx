@@ -32,25 +32,25 @@ export default function MetricCard({
   }
 
   return (
-    <div className={`bg-white rounded-2xl p-5 shadow-sm border border-slate-200 hover:shadow-md transition-shadow relative overflow-hidden ${borderColors[variant] || ''}`}>
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex-1">
-          <p className="text-xs font-semibold text-slate-700 tracking-wide uppercase">{title}</p>
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">{value}</span>
+    <div className={`bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-200 hover:shadow-md transition-shadow relative overflow-hidden ${borderColors[variant] || ''}`}>
+      <div className="flex items-start justify-between gap-2.5">
+        <div className="flex-1 min-w-0">
+          <p className="text-[11px] sm:text-xs font-semibold text-slate-700 tracking-wide uppercase truncate" title={title}>{title}</p>
+          <div className="mt-1.5 sm:mt-2 flex flex-wrap items-baseline gap-1.5 sm:gap-2">
+            <span className="text-xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">{value}</span>
             {badge && (
-              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full border ${badgeStyles[badgeType]}`}>
+              <span className={`text-[10px] sm:text-[11px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full border ${badgeStyles[badgeType]}`}>
                 {badge}
               </span>
             )}
           </div>
           {subtitle && (
-            <p className="mt-1.5 text-xs text-slate-700 font-medium leading-relaxed">{subtitle}</p>
+            <p className="mt-1 text-[11px] sm:text-xs text-slate-600 font-medium leading-relaxed">{subtitle}</p>
           )}
         </div>
         {Icon && (
-          <div className={`p-2.5 rounded-xl ${iconColors[variant] || 'bg-slate-100 text-slate-600'} shrink-0`}>
-            <Icon className="w-5 h-5" />
+          <div className={`p-2 sm:p-2.5 rounded-xl ${iconColors[variant] || 'bg-slate-100 text-slate-600'} shrink-0`}>
+            <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
           </div>
         )}
       </div>

@@ -33,28 +33,28 @@ export default function DataGridExport({ expositores, visitantes, onExportCSV })
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-5">
+    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-6 space-y-4 sm:space-y-5">
       
       {/* Table Header Controls */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <Table className="w-4 h-4 text-fecomercio-blue" />
-            <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
+            <Table className="w-4 h-4 text-fecomercio-blue shrink-0" />
+            <h3 className="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider">
               Explorador de Dados Brutos & Auditoria
             </h3>
           </div>
-          <p className="text-xs text-slate-700 mt-0.5">
+          <p className="text-[11px] sm:text-xs text-slate-700 mt-0.5">
             Visualize todos os registros individuais com notas e comentários
           </p>
         </div>
 
         {/* Dataset Switcher & Export */}
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs">
             <button
               onClick={() => handleDatasetChange('expositores')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-semibold transition-all ${
+              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg font-semibold transition-all ${
                 activeDataset === 'expositores' 
                   ? 'bg-white text-fecomercio-blue shadow-sm' 
                   : 'text-slate-600 hover:text-slate-900'
@@ -65,7 +65,7 @@ export default function DataGridExport({ expositores, visitantes, onExportCSV })
             </button>
             <button
               onClick={() => handleDatasetChange('visitantes')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-semibold transition-all ${
+              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg font-semibold transition-all ${
                 activeDataset === 'visitantes' 
                   ? 'bg-white text-fesuper-emerald shadow-sm' 
                   : 'text-slate-600 hover:text-slate-900'
@@ -92,15 +92,20 @@ export default function DataGridExport({ expositores, visitantes, onExportCSV })
         <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
         <input
           type="text"
-          placeholder={`Pesquisar entre ${filteredData.length} registros (empresa, segmento, cidade, comentário)...`}
+          placeholder={`Pesquisar entre ${filteredData.length} registros...`}
           value={searchTerm}
           onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
           className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-fecomercio-blue/20 outline-none transition-all"
         />
       </div>
 
+      {/* Mobile Swipe Hint */}
+      <div className="flex sm:hidden items-center justify-between text-[11px] text-slate-500 px-1">
+        <span>← Deslize lateralmente para navegar pelas colunas →</span>
+      </div>
+
       {/* Responsive Table */}
-      <div className="overflow-x-auto rounded-xl border border-slate-200">
+      <div className="overflow-x-auto rounded-xl border border-slate-200 -mx-1 sm:mx-0">
         <table className="w-full text-left text-xs border-collapse">
           <thead>
             <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold uppercase tracking-wider text-[11px]">

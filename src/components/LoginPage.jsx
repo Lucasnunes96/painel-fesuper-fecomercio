@@ -55,7 +55,7 @@ export default function LoginPage({ onLogin }) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 flex flex-col justify-center items-center p-4 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-slate-900 flex flex-col justify-center items-center p-3 sm:p-4 relative overflow-hidden font-sans">
       
       {/* Background Decorativo Institucional */}
       <div className="absolute inset-0 bg-gradient-to-br from-fecomercio-navy via-[#023e73] to-fesuper-darkGreen opacity-95"></div>
@@ -65,11 +65,11 @@ export default function LoginPage({ onLogin }) {
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-fecomercio-gold/15 rounded-full blur-3xl pointer-events-none"></div>
 
       {/* Card Principal */}
-      <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl border border-slate-100 p-8 sm:p-10 relative z-10 backdrop-blur-sm animate-fadeIn">
+      <div className="w-full max-w-md bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-100 p-5 sm:p-8 md:p-10 relative z-10 backdrop-blur-sm animate-fadeIn">
         
         {/* Logos Institucionais */}
-        <div className="flex items-center justify-center gap-4 mb-6">
-          <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80 shadow-sm flex items-center justify-center h-14 w-36">
+        <div className="flex items-center justify-center gap-3 sm:gap-4 mb-5 sm:mb-6">
+          <div className="bg-slate-50 p-2 sm:p-2.5 rounded-xl border border-slate-200/80 shadow-sm flex items-center justify-center h-12 sm:h-14 w-28 sm:w-36">
             <img 
               src="/assets/logo_fecomercio.png" 
               alt="Fecomércio AL" 
@@ -77,9 +77,9 @@ export default function LoginPage({ onLogin }) {
             />
           </div>
 
-          <div className="h-8 w-px bg-slate-200"></div>
+          <div className="h-7 sm:h-8 w-px bg-slate-200"></div>
 
-          <div className="bg-slate-900 p-2 rounded-xl border border-slate-700 shadow-sm flex items-center justify-center h-14 w-36 overflow-hidden">
+          <div className="bg-slate-900 p-1.5 sm:p-2 rounded-xl border border-slate-700 shadow-sm flex items-center justify-center h-12 sm:h-14 w-28 sm:w-36 overflow-hidden">
             <img 
               src="/assets/logo_fesuper.png" 
               alt="FESUPER 2026" 
@@ -89,14 +89,14 @@ export default function LoginPage({ onLogin }) {
         </div>
 
         {/* Títulos do Painel */}
-        <div className="text-center mb-7">
-          <span className="inline-block bg-fesuper-emerald/10 text-fesuper-darkGreen text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-fesuper-emerald/20">
+        <div className="text-center mb-6 sm:mb-7">
+          <span className="inline-block bg-fesuper-emerald/10 text-fesuper-darkGreen text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-fesuper-emerald/20">
             Acesso Restrito • FESUPER 2026
           </span>
-          <h1 className="text-xl font-bold text-slate-800 tracking-tight">
+          <h1 className="text-lg sm:text-xl font-bold text-slate-800 tracking-tight">
             Painel de Indicadores e Resultados
           </h1>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-[11px] sm:text-xs text-slate-500 mt-1">
             Sistema Fecomércio Sesc Senac AL & ASA Supermercados
           </p>
         </div>
@@ -205,3 +205,4 @@ export default function LoginPage({ onLogin }) {
     </div>
   )
 }
+
