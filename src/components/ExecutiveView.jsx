@@ -231,8 +231,8 @@ export default function ExecutiveView({ data, onSelectTab }) {
                 />
                 <YAxis tick={{ fontSize: 10, fill: '#64748b' }} />
                 <Tooltip content={<ComparativeCustomTooltip />} />
-                <Bar dataKey="Expositores" fill="#004B8D" radius={[6, 6, 0, 0]} />
-                <Bar dataKey="Visitantes" fill="#059669" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="Expositores" fill="#004B8D" radius={[6, 6, 0, 0]} isAnimationActive={false} />
+                <Bar dataKey="Visitantes" fill="#059669" radius={[6, 6, 0, 0]} isAnimationActive={false} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -258,41 +258,61 @@ export default function ExecutiveView({ data, onSelectTab }) {
 
           <div className="grid grid-cols-2 gap-2.5 sm:gap-4 my-2">
             {/* Expositores */}
-            <div className="text-center p-2.5 sm:p-3.5 bg-slate-50 rounded-xl border border-slate-200">
-              <p className="text-[11px] sm:text-xs font-bold text-fecomercio-blue uppercase">Expositores</p>
-              <div className="h-28 sm:h-32 w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie data={expNpsData} innerRadius={26} outerRadius={46} dataKey="value">
-                      {expNpsData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Pie>
-                    <Tooltip formatter={(value, name) => [`${value} respostas`, name]} />
-                  </PieChart>
-                </ResponsiveContainer>
+            <div className="text-center p-3 sm:p-4 bg-slate-50 rounded-xl border border-slate-200 flex flex-col items-center justify-center space-y-1">
+              <p className="text-[11px] sm:text-xs font-bold text-fecomercio-blue uppercase tracking-wider">Expositores</p>
+              <div className="nps-donut-box w-[130px] h-[105px] flex items-center justify-center my-0.5">
+                <PieChart width={130} height={105}>
+                  <Pie 
+                    data={expNpsData} 
+                    cx={65} 
+                    cy={52} 
+                    innerRadius={25} 
+                    outerRadius={45} 
+                    dataKey="value"
+                    isAnimationActive={false}
+                    stroke="#ffffff"
+                    strokeWidth={2}
+                  >
+                    {expNpsData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(value, name) => [`${value} respostas`, name]} />
+                </PieChart>
               </div>
-              <p className="text-sm sm:text-base font-extrabold text-slate-800">NPS +{exp.nps}</p>
-              <p className="text-[10px] sm:text-[11px] text-slate-700 font-semibold">{exp.promotores_pct}% Promotores</p>
+              <div>
+                <p className="text-sm sm:text-base font-extrabold text-slate-800 leading-tight">NPS +{exp.nps}</p>
+                <p className="text-[10px] sm:text-[11px] text-slate-600 font-semibold mt-0.5">{exp.promotores_pct}% Promotores</p>
+              </div>
             </div>
 
             {/* Visitantes */}
-            <div className="text-center p-2.5 sm:p-3.5 bg-slate-50 rounded-xl border border-slate-200">
-              <p className="text-[11px] sm:text-xs font-bold text-fesuper-emerald uppercase">Visitantes</p>
-              <div className="h-28 sm:h-32 w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie data={visNpsData} innerRadius={26} outerRadius={46} dataKey="value">
-                      {visNpsData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Pie>
-                    <Tooltip formatter={(value, name) => [`${value} respostas`, name]} />
-                  </PieChart>
-                </ResponsiveContainer>
+            <div className="text-center p-3 sm:p-4 bg-slate-50 rounded-xl border border-slate-200 flex flex-col items-center justify-center space-y-1">
+              <p className="text-[11px] sm:text-xs font-bold text-fesuper-emerald uppercase tracking-wider">Visitantes</p>
+              <div className="nps-donut-box w-[130px] h-[105px] flex items-center justify-center my-0.5">
+                <PieChart width={130} height={105}>
+                  <Pie 
+                    data={visNpsData} 
+                    cx={65} 
+                    cy={52} 
+                    innerRadius={25} 
+                    outerRadius={45} 
+                    dataKey="value"
+                    isAnimationActive={false}
+                    stroke="#ffffff"
+                    strokeWidth={2}
+                  >
+                    {visNpsData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(value, name) => [`${value} respostas`, name]} />
+                </PieChart>
               </div>
-              <p className="text-sm sm:text-base font-extrabold text-slate-800">NPS +{vis.nps}</p>
-              <p className="text-[10px] sm:text-[11px] text-slate-700 font-semibold">{vis.promotores_pct}% Promotores</p>
+              <div>
+                <p className="text-sm sm:text-base font-extrabold text-slate-800 leading-tight">NPS +{vis.nps}</p>
+                <p className="text-[10px] sm:text-[11px] text-slate-600 font-semibold mt-0.5">{vis.promotores_pct}% Promotores</p>
+              </div>
             </div>
           </div>
 

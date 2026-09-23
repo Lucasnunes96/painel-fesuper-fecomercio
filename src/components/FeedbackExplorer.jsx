@@ -76,7 +76,7 @@ export default function FeedbackExplorer({ feedbacks, tagsSummary }) {
           </div>
 
           {/* Quick Search Input */}
-          <div className="relative w-full md:w-80">
+          <div className="relative w-full md:w-80 no-print">
             <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
@@ -97,7 +97,7 @@ export default function FeedbackExplorer({ feedbacks, tagsSummary }) {
         </div>
 
         {/* Tag Cloud Filter Chips */}
-        <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5 sm:gap-2">
+        <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5 sm:gap-2 no-print">
           <button
             onClick={() => setSelectedTag('todas')}
             className={`text-[11px] sm:text-xs px-2.5 sm:px-3 py-1.5 rounded-xl font-semibold border transition-all ${
@@ -133,7 +133,7 @@ export default function FeedbackExplorer({ feedbacks, tagsSummary }) {
         </div>
 
         {/* Sub-Filters: Tipo de Público & Categoria de Comentário */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2 text-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2 text-xs no-print">
           <div className="flex flex-wrap items-center gap-2">
             <div className="flex items-center gap-1 bg-slate-50 border border-slate-200 rounded-lg p-1">
               <button

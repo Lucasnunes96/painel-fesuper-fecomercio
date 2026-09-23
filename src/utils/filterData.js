@@ -8,8 +8,8 @@ const OP_FIELD_MAP = {
   'Limpeza, conforto e segurança': 'limpeza_seguranca',
   'Organização geral': 'organizacao',
   'Quantidade e perfil dos visitantes': 'perfil_visitantes',
-  'Comunicação antes e durante o evento': 'comunicacao',
-  'Estrutura e Montagem dos estades': 'estrutura_montagem',
+  'Comunicação pré e durante evento': 'comunicacao',
+  'Estrutura e Montagem dos estandes': 'estrutura_montagem',
 }
 
 export function filterAndRecalculateData(rawData, filters) {

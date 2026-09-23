@@ -48,33 +48,6 @@ export default function StrategicPlanView() {
         'Aplicação de pesquisa de acompanhamento (follow-up) de 60 a 90 dias para mensurar o volume financeiro dos negócios convertidos.',
         'Disponibilização de orientação pré-evento aos estandes sobre técnicas de prospecção e acompanhamento de propostas pós-feira.'
       ]
-    },
-    {
-      num: '04',
-      titulo: 'Metodologia e Monitoramento Contínuo',
-      icon: BarChart3,
-      cor: 'border-l-amber-600',
-      badge: 'Qualidade Estatística',
-      badgeColor: 'bg-amber-50 text-amber-800 border-amber-200',
-      itens: [
-        'Padronização de todas as perguntas avaliativas em escalas numéricas de 0 a 10, sem faixas agrupadas.',
-        'Inclusão da métrica formal do Net Promoter Score (probabilidade de recomendar a FESUPER a parceiros do setor).',
-        'Coleta de dados proporcional e distribuída nos três dias do evento, registrando data e hora de cada entrevista.',
-        'Garantia de uma resposta por empresa expositora para manter a precisão amostral sem duplicidade corporativa.'
-      ]
-    },
-    {
-      num: '05',
-      titulo: 'Governança e Parceria Institucional',
-      icon: ShieldCheck,
-      cor: 'border-l-purple-600',
-      badge: 'Fortalecimento do Setor',
-      badgeColor: 'bg-purple-50 text-purple-800 border-purple-200',
-      itens: [
-        'Reunião técnica de pactuação de metas entre a Diretoria da ASA e o Sistema Fecomércio Sesc Senac Alagoas.',
-        'Apresentação pública dos resultados como prestação de contas aos expositores para incentivar a fidelização para 2027.',
-        'Consolidação de Arapiraca como o polo regional indutor de abastecimento e desenvolvimento do comércio supermercadista.'
-      ]
     }
   ]
 
@@ -88,7 +61,7 @@ export default function StrategicPlanView() {
         'Cores diferenciadas nos crachás por categoria de visitante e expositor',
         'Antecipação do cronograma de montagem com estandes liberados 24h antes',
         'Articulação de caravanas de compradores com entidades do Agreste e Sertão',
-        'Padronização das escalas de 0 a 10 e pesquisa pós-evento de 90 dias'
+        'Pesquisa comercial de acompanhamento (follow-up) pós-evento de 60 a 90 dias'
       ]
     },
     {
@@ -148,11 +121,11 @@ export default function StrategicPlanView() {
         </div>
       </div>
 
-      {/* Os 5 Pilares do Relatório Oficial */}
+      {/* Os 3 Pilares do Relatório Oficial */}
       <div className="space-y-4">
         <h3 className="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
           <Target className="w-4 h-4 text-fesuper-emerald" />
-          Os 5 Pilares Estratégicos Fecomércio AL & ASA
+          Os 3 Pilares Estratégicos Fecomércio AL & ASA
         </h3>
 
         <div className="grid grid-cols-1 gap-3 sm:gap-4">

@@ -8,13 +8,22 @@ import FeedbackExplorer from './components/FeedbackExplorer'
 import StrategicPlanView from './components/StrategicPlanView'
 import DataGridExport from './components/DataGridExport'
 import LoginPage from './components/LoginPage'
+import ReportModal from './components/ReportModal'
 import dashboardData from './data/dashboard_data.json'
 import { filterAndRecalculateData } from './utils/filterData'
 
 import { 
   LayoutDashboard, Building2, Users, MessageSquareText, 
-  Lightbulb, Table, Filter, X 
+  Lightbulb, Table, Filter, X, ArrowLeft, Printer 
 } from 'lucide-react'
+
+const DEFAULT_REPORT_SECTIONS = [
+  { id: 'executiva', label: 'Visão Executiva & Síntese', description: 'KPIs, benchmarking entre públicos e distribuição de NPS', included: true },
+  { id: 'recomendacoes', label: 'Recomendações Estruturais', description: 'Diretrizes 2027 e os 3 Pilares Estratégicos Fecomércio & ASA', included: true },
+  { id: 'expositores', label: 'Expositores (B2B)', description: 'Efetividade comercial, radar de satisfação e conversão', included: true },
+  { id: 'visitantes', label: 'Visitantes (Varejo)', description: 'Perfil de compras, motivações e índice de aprovação', included: true },
+  { id: 'voz_cliente', label: 'Depoimentos & Críticas', description: 'Relatos literais e análise qualitativa de participantes', included: true }
+]
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(() => {
@@ -32,6 +41,21 @@ export default function App() {
     npsCat: 'todos',
     origem: 'todos'
   })
+
+  // Estado do Gerador de Relatório Personalizado
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false)
+  const [reportSections, setReportSections] = useState(DEFAULT_REPORT_SECTIONS)
+  const [isReportMode, setIsReportMode] = useState(false)
+
+  const handleGenerateReport = (configuredSections) => {
+    setReportSections(configuredSections)
+    setIsReportMode(true)
+    setIsReportModalOpen(false)
+    // Tempo seguro para que todos os gráficos Recharts realizem medição e renderização no DOM antes da impressão
+    setTimeout(() => {
+      window.print()
+    }, 800)
+  }
 
   const handleLogin = (user) => {
     setCurrentUser(user)
@@ -118,128 +142,247 @@ export default function App() {
         onExportCSV={handleExportCSV}
         currentUser={currentUser}
         onLogout={handleLogout}
+        onOpenReportModal={() => setIsReportModalOpen(true)}
       />
 
-      {/* Global Filter Bar */}
-      <FilterBar 
-        filters={filters} 
-        setFilters={setFilters} 
-        stats={stats}
-      />
+      {/* Global Filter Bar (apenas no modo painel regular; oculto no modo relatório e na impressão) */}
+      {!isReportMode && (
+        <>
+          <FilterBar 
+            filters={filters} 
+            setFilters={setFilters} 
+            stats={stats}
+          />
 
-      {/* Active Filter Notice Pill */}
-      {isFiltered && (
-        <div className="bg-blue-50 border-b border-blue-200 py-1.5 px-3 sm:px-4 text-xs text-blue-900 no-print">
-          <div className="max-w-7xl mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
-            <div className="flex items-center gap-2 font-medium">
-              <Filter className="w-3.5 h-3.5 text-fecomercio-blue shrink-0" />
-              <span className="text-[11px] sm:text-xs">
-                Filtro aplicado: 
-                {filters.publico !== 'todos' && <strong className="ml-1">Público: {filters.publico === 'expositores' ? 'Expositores' : 'Visitantes'};</strong>}
-                {filters.npsCat !== 'todos' && <strong className="ml-1">NPS: {filters.npsCat};</strong>}
-                {filters.origem !== 'todos' && <strong className="ml-1">Origem: {filters.origem};</strong>}
-                <span className="text-slate-600 ml-1">({stats.filteredCount} respondentes)</span>
+          {/* Active Filter Notice Pill */}
+          {isFiltered && (
+            <div className="bg-blue-50 border-b border-blue-200 py-1.5 px-3 sm:px-4 text-xs text-blue-900 no-print">
+              <div className="max-w-7xl mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+                <div className="flex items-center gap-2 font-medium">
+                  <Filter className="w-3.5 h-3.5 text-fecomercio-blue shrink-0" />
+                  <span className="text-[11px] sm:text-xs">
+                    Filtro aplicado: 
+                    {filters.publico !== 'todos' && <strong className="ml-1">Público: {filters.publico === 'expositores' ? 'Expositores' : 'Visitantes'};</strong>}
+                    {filters.npsCat !== 'todos' && <strong className="ml-1">NPS: {filters.npsCat};</strong>}
+                    {filters.origem !== 'todos' && <strong className="ml-1">Origem: {filters.origem};</strong>}
+                    <span className="text-slate-600 ml-1">({stats.filteredCount} respondentes)</span>
+                  </span>
+                </div>
+                <button 
+                  onClick={handleResetFilters}
+                  className="text-[11px] sm:text-xs text-blue-700 hover:text-red-700 font-bold underline flex items-center gap-1 self-end sm:self-auto cursor-pointer"
+                >
+                  <X className="w-3 h-3" />
+                  <span>Restaurar Visão Geral</span>
+                </button>
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
+      {/* Barra de Controle Exclusiva do Modo Relatório (apenas em tela) */}
+      {isReportMode && (
+        <div className="bg-slate-900 text-white px-3 sm:px-6 py-2.5 border-b border-slate-800 shadow-md no-print sticky top-0 z-40">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <button
+                onClick={() => setIsReportMode(false)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-all cursor-pointer"
+                title="Voltar à navegação regular por abas"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Voltar ao Painel</span>
+              </button>
+              <div className="h-4 w-px bg-white/20 hidden sm:block"></div>
+              <span className="text-[11px] sm:text-xs text-slate-300 hidden sm:inline">
+                Modo de Relatório Completo • <strong>{reportSections.filter(s => s.included).length} módulos ativos</strong>
               </span>
             </div>
-            <button 
-              onClick={handleResetFilters}
-              className="text-[11px] sm:text-xs text-blue-700 hover:text-red-700 font-bold underline flex items-center gap-1 self-end sm:self-auto cursor-pointer"
-            >
-              <X className="w-3 h-3" />
-              <span>Restaurar Visão Geral</span>
-            </button>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setIsReportModalOpen(true)}
+                className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-all cursor-pointer"
+              >
+                Configurar Seções
+              </button>
+              <button
+                onClick={() => window.print()}
+                className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-fecomercio-gold hover:bg-amber-600 text-white text-xs font-bold transition-all shadow-sm active:scale-95 cursor-pointer"
+              >
+                <Printer className="w-3.5 h-3.5" />
+                <span>Imprimir / Salvar PDF</span>
+              </button>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Navigation Tabs Bar */}
-      <nav aria-label="Navegação do painel" className="bg-white border-b border-slate-200 shadow-sm no-print">
-        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-          <div className="flex space-x-1 sm:space-x-2 overflow-x-auto py-2 sm:py-2.5 scrollbar-none touch-pan-x">
-            {tabs.map((tab) => {
-              const Icon = tab.icon
-              const isActive = activeTab === tab.id
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-xl whitespace-nowrap transition-all cursor-pointer ${
-                    isActive
-                      ? 'bg-fecomercio-navy text-white shadow-sm ring-1 ring-fecomercio-navy'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                  }`}
-                >
-                  <Icon className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isActive ? 'text-amber-400' : 'text-slate-500'}`} />
-                  <span>{tab.label}</span>
-                  {tab.count !== undefined && (
-                    <span className={`text-[9px] sm:text-[10px] font-bold px-1.5 py-0.2 rounded-full transition-colors ${
-                      isActive ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'
-                    }`}>
-                      {tab.count}
-                    </span>
-                  )}
-                </button>
-              )
-            })}
+      {/* Navigation Tabs Bar (apenas quando não estiver no Modo Relatório) */}
+      {!isReportMode && (
+        <nav aria-label="Navegação do painel" className="bg-white border-b border-slate-200 shadow-sm no-print">
+          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+            <div className="flex space-x-1 sm:space-x-2 overflow-x-auto py-2 sm:py-2.5 scrollbar-none touch-pan-x">
+              {tabs.map((tab) => {
+                const Icon = tab.icon
+                const isActive = activeTab === tab.id
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold rounded-xl whitespace-nowrap transition-all cursor-pointer ${
+                      isActive
+                        ? 'bg-fecomercio-navy text-white shadow-sm ring-1 ring-fecomercio-navy'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                    }`}
+                  >
+                    <Icon className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isActive ? 'text-amber-400' : 'text-slate-500'}`} />
+                    <span>{tab.label}</span>
+                    {tab.count !== undefined && (
+                      <span className={`text-[9px] sm:text-[10px] font-bold px-1.5 py-0.2 rounded-full transition-colors ${
+                        isActive ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'
+                      }`}>
+                        {tab.count}
+                      </span>
+                    )}
+                  </button>
+                )
+              })}
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      )}
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
-        {activeTab === 'executiva' && (
-          <ExecutiveView 
-            data={dynamicData} 
-            onSelectTab={setActiveTab}
-          />
-        )}
+        {isReportMode ? (
+          /* MODO RELATÓRIO COMPOSTO: Renderiza todos os módulos na tela com dimensões reais para os gráficos */
+          <div className="w-full space-y-8 print:space-y-6">
+            {reportSections.filter(s => s.included).map((section, idx) => (
+              <section key={section.id} className={idx > 0 ? "page-break-before pt-4 sm:pt-6 border-t border-slate-200 print:border-none" : "pt-1"}>
+                {/* Cabeçalho de Capítulo no Relatório */}
+                <div className="mb-4 pb-2 border-b-2 border-[#002B55] flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-md bg-[#002B55] text-white flex items-center justify-center text-xs font-bold font-mono">
+                      {idx + 1}
+                    </span>
+                    <h2 className="text-sm font-bold text-[#002B55] uppercase tracking-wider">
+                      {section.label}
+                    </h2>
+                  </div>
+                  <span className="text-[11px] text-slate-500 font-medium">
+                    Módulo {idx + 1} de {reportSections.filter(s => s.included).length}
+                  </span>
+                </div>
 
-        {activeTab === 'expositores' && (
-          <ExhibitorsView 
-            data={dynamicData} 
-          />
-        )}
+                {/* Conteúdo Renderizado do Módulo */}
+                {section.id === 'executiva' && (
+                  <ExecutiveView 
+                    data={dynamicData} 
+                    onSelectTab={setActiveTab}
+                  />
+                )}
 
-        {activeTab === 'visitantes' && (
-          <VisitorsView 
-            data={dynamicData} 
-          />
-        )}
+                {section.id === 'recomendacoes' && (
+                  <StrategicPlanView />
+                )}
 
-        {activeTab === 'voz_cliente' && (
-          <FeedbackExplorer 
-            feedbacks={dynamicData.feedbacks} 
-            tagsSummary={dynamicData.tags_qualitativas}
-          />
-        )}
+                {section.id === 'expositores' && (
+                  <ExhibitorsView 
+                    data={dynamicData} 
+                  />
+                )}
 
-        {activeTab === 'recomendacoes' && (
-          <StrategicPlanView />
-        )}
+                {section.id === 'visitantes' && (
+                  <VisitorsView 
+                    data={dynamicData} 
+                  />
+                )}
 
-        {activeTab === 'dados' && (
-          <DataGridExport 
-            expositores={dynamicData.filteredExpositores}
-            visitantes={dynamicData.filteredVisitantes}
-            onExportCSV={handleExportCSV}
-          />
+                {section.id === 'voz_cliente' && (
+                  <FeedbackExplorer 
+                    feedbacks={dynamicData.feedbacks} 
+                    tagsSummary={dynamicData.tags_qualitativas}
+                  />
+                )}
+              </section>
+            ))}
+          </div>
+        ) : (
+          /* MODO REGULAR: Aba Ativa */
+          <>
+            {activeTab === 'executiva' && (
+              <ExecutiveView 
+                data={dynamicData} 
+                onSelectTab={setActiveTab}
+              />
+            )}
+
+            {activeTab === 'expositores' && (
+              <ExhibitorsView 
+                data={dynamicData} 
+              />
+            )}
+
+            {activeTab === 'visitantes' && (
+              <VisitorsView 
+                data={dynamicData} 
+              />
+            )}
+
+            {activeTab === 'voz_cliente' && (
+              <FeedbackExplorer 
+                feedbacks={dynamicData.feedbacks} 
+                tagsSummary={dynamicData.tags_qualitativas}
+              />
+            )}
+
+            {activeTab === 'recomendacoes' && (
+              <StrategicPlanView />
+            )}
+
+            {activeTab === 'dados' && (
+              <DataGridExport 
+                expositores={dynamicData.filteredExpositores}
+                visitantes={dynamicData.filteredVisitantes}
+                onExportCSV={handleExportCSV}
+              />
+            )}
+          </>
         )}
       </main>
 
-      {/* Institutional Footer */}
+      {/* Rodapé Executivo Exclusivo para Impressão A4 */}
+      <div className="hidden print:block text-center mt-6 pt-3 border-t border-slate-300 text-[9px] text-slate-500 page-break-inside-avoid">
+        <p className="font-bold text-slate-700">
+          Relatório Executivo Oficial • 24ª Edição FESUPER 2026 • Arapiraca/AL
+        </p>
+        <p>
+          Sistema Fecomércio Sesc Senac AL • Instituto Fecomércio AL • Associação dos Supermercados de Alagoas (ASA)
+        </p>
+      </div>
+
+      {/* Institutional Footer (apenas tela) */}
       <footer className="bg-slate-900 text-slate-400 border-t border-slate-800 text-xs py-8 mt-12 no-print">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
           
           <div className="flex items-center gap-4">
-            <div className="bg-white/10 p-2 rounded-lg">
+            <div className="bg-white/10 p-2 rounded-lg flex items-center gap-2">
               <img 
                 src="/assets/logo_fecomercio.png" 
                 alt="Fecomércio AL" 
-                className="h-8 object-contain brightness-0 invert"
+                className="h-7 object-contain brightness-0 invert"
+              />
+              <div className="h-5 w-px bg-white/20"></div>
+              <img 
+                src="/assets/logo_instituto_fecomercio.png" 
+                alt="Instituto Fecomércio AL" 
+                className="h-7 object-contain brightness-0 invert"
               />
             </div>
             <div>
-              <p className="font-bold text-white text-xs">Sistema Fecomércio Sesc Senac Alagoas</p>
+              <p className="font-bold text-white text-xs">Sistema Fecomércio Sesc Senac & Instituto Fecomércio Alagoas</p>
               <p className="text-[11px] text-slate-400">Parceria Institucional com a Associação dos Supermercados de Alagoas (ASA)</p>
             </div>
           </div>
@@ -258,6 +401,14 @@ export default function App() {
 
         </div>
       </footer>
+
+      {/* Modal de Personalização e Geração de Relatório Oficial */}
+      <ReportModal
+        isOpen={isReportModalOpen}
+        onClose={() => setIsReportModalOpen(false)}
+        sections={reportSections}
+        onGenerateReport={handleGenerateReport}
+      />
 
     </div>
   )

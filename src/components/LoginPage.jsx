@@ -67,9 +67,9 @@ export default function LoginPage({ onLogin }) {
       {/* Card Principal */}
       <div className="w-full max-w-md bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-100 p-5 sm:p-8 md:p-10 relative z-10 backdrop-blur-sm animate-fadeIn">
         
-        {/* Logos Institucionais */}
-        <div className="flex items-center justify-center gap-3 sm:gap-4 mb-5 sm:mb-6">
-          <div className="bg-slate-50 p-2 sm:p-2.5 rounded-xl border border-slate-200/80 shadow-sm flex items-center justify-center h-12 sm:h-14 w-28 sm:w-36">
+        {/* Logos Institucionais na ordem: Fecomércio -> Instituto Fecomércio -> FESUPER */}
+        <div className="flex items-center justify-center gap-2 sm:gap-3 mb-5 sm:mb-6">
+          <div className="bg-slate-50 p-1.5 sm:p-2 rounded-xl border border-slate-200/80 shadow-sm flex items-center justify-center h-11 sm:h-12 w-24 sm:w-28">
             <img 
               src="/assets/logo_fecomercio.png" 
               alt="Fecomércio AL" 
@@ -77,9 +77,19 @@ export default function LoginPage({ onLogin }) {
             />
           </div>
 
-          <div className="h-7 sm:h-8 w-px bg-slate-200"></div>
+          <div className="h-6 sm:h-7 w-px bg-slate-200"></div>
 
-          <div className="bg-slate-900 p-1.5 sm:p-2 rounded-xl border border-slate-700 shadow-sm flex items-center justify-center h-12 sm:h-14 w-28 sm:w-36 overflow-hidden">
+          <div className="bg-slate-50 p-1.5 sm:p-2 rounded-xl border border-slate-200/80 shadow-sm flex items-center justify-center h-11 sm:h-12 w-24 sm:w-28">
+            <img 
+              src="/assets/logo_instituto_fecomercio.png" 
+              alt="Instituto Fecomércio AL" 
+              className="max-h-full max-w-full object-contain"
+            />
+          </div>
+
+          <div className="h-6 sm:h-7 w-px bg-slate-200"></div>
+
+          <div className="bg-slate-900 p-1 sm:p-1.5 rounded-xl border border-slate-700 shadow-sm flex items-center justify-center h-11 sm:h-12 w-24 sm:w-28 overflow-hidden">
             <img 
               src="/assets/logo_fesuper.png" 
               alt="FESUPER 2026" 

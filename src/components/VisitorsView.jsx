@@ -104,13 +104,13 @@ export default function VisitorsView({ data }) {
                   dataKey="name" 
                   type="category" 
                   tick={{ fontSize: 10, fill: '#334155' }} 
-                  width={140} 
+                  width={150} 
                 />
                 <Tooltip 
                   formatter={(value) => [`${value} participantes`, 'Quantidade']}
                   contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', fontSize: '12px' }}
                 />
-                <Bar dataKey="count" fill="#059669" radius={[0, 6, 6, 0]}>
+                <Bar dataKey="count" fill="#059669" radius={[0, 6, 6, 0]} isAnimationActive={false}>
                   {perfil_visitantes.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
@@ -151,7 +151,7 @@ export default function VisitorsView({ data }) {
                   formatter={(value) => [`${value} visitantes`, 'Total']}
                   contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', fontSize: '12px' }}
                 />
-                <Bar dataKey="count" fill="#004B8D" radius={[6, 6, 0, 0]}>
+                <Bar dataKey="count" fill="#004B8D" radius={[6, 6, 0, 0]} isAnimationActive={false}>
                   {origem_visitantes.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={index === 0 ? '#059669' : '#004B8D'} />
                   ))}

@@ -12,23 +12,23 @@ import MetricCard from './MetricCard'
 // Tooltip customizado rico para o Radar
 function CustomRadarTooltip({ active, payload }) {
   if (active && payload && payload.length) {
-    const data = payload[0].payload
+    const raw = payload[0].payload.raw || payload[0].payload
     return (
       <div className="bg-slate-900 text-white p-4 rounded-xl shadow-xl border border-slate-700 max-w-xs text-xs space-y-2 z-50">
         <div className="flex items-center justify-between gap-2 border-b border-slate-700 pb-1.5">
-          <span className="font-bold text-slate-100">{data.full_name || data.subject}</span>
-          <span className="font-mono font-extrabold text-emerald-400 text-sm">{data.nota}</span>
+          <span className="font-bold text-slate-100">{raw.full_name || raw.subject}</span>
+          <span className="font-mono font-extrabold text-emerald-400 text-sm">{raw.nota}</span>
         </div>
         <div className="flex items-center justify-between text-[11px] text-slate-300">
-          <span>Respostas Válidas: <strong>{data.respostas}</strong></span>
-          <span className="text-amber-300 font-semibold">{data.pct_10}% nota 10</span>
+          <span>Respostas Válidas: <strong>{raw.respostas}</strong></span>
+          <span className="text-amber-300 font-semibold">{raw.pct_10}% nota 10</span>
         </div>
         <div className="bg-slate-800/90 p-2.5 rounded-lg border border-slate-700 text-slate-200 italic leading-relaxed">
           <div className="flex items-center gap-1 text-[10px] text-slate-400 not-italic uppercase font-semibold mb-1">
             <MessageSquareQuote className="w-3 h-3 text-amber-400" />
             <span>Relato Literal de Expositor:</span>
           </div>
-          "{data.citacao}"
+          "{raw.citacao}"
         </div>
       </div>
     )
@@ -39,6 +39,13 @@ function CustomRadarTooltip({ active, payload }) {
 export default function ExhibitorsView({ data }) {
   const { kpis_principais, dimensoes_operacionais, radar_data, segmentos_expositores, contatos_expositores, origem_expositores, filteredExpositores } = data
   const exp = kpis_principais.expositores
+
+  // Dados sanitizados para o Radar: apenas 'nota' como número para não distorcer a escala máxima [0, 10]
+  const cleanRadarData = (radar_data || []).map(d => ({
+    subject: d.subject,
+    nota: Number(d.nota),
+    raw: d
+  }))
 
   // Estado para dimensão selecionada na inspeção interativa
   const [selectedDim, setSelectedDim] = useState(dimensoes_operacionais[8] || dimensoes_operacionais[0])
@@ -130,7 +137,7 @@ export default function ExhibitorsView({ data }) {
                   Renderizado em tempo real a partir das notas das 62 empresas
                 </p>
               </div>
-              <span className="text-[9px] sm:text-[10px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-lg border border-slate-200 shrink-0">
+              <span className="no-print text-[9px] sm:text-[10px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-lg border border-slate-200 shrink-0">
                 Toque nos eixos
               </span>
             </div>
@@ -138,15 +145,19 @@ export default function ExhibitorsView({ data }) {
             {/* Recharts Radar Chart */}
             <div className="h-72 sm:h-80 w-full mt-2">
               <ResponsiveContainer width="100%" height="100%">
-                <RadarChart cx="50%" cy="50%" outerRadius="68%" data={radar_data}>
+                <RadarChart cx="50%" cy="50%" outerRadius="75%" data={cleanRadarData}>
                   <PolarGrid stroke="#cbd5e1" strokeDasharray="3 3" />
                   <PolarAngleAxis 
                     dataKey="subject" 
                     tick={{ fill: '#334155', fontSize: 10, fontWeight: 600 }}
                   />
                   <PolarRadiusAxis 
-                    angle={90} 
+                    angle={30} 
                     domain={[0, 10]} 
+                    ticks={[0, 2.5, 5, 7.5, 10]}
+                    type="number"
+                    dataKey="nota"
+                    allowDataOverflow={false}
                     tick={{ fill: '#64748b', fontSize: 9 }}
                   />
                   <Radar
@@ -158,6 +169,7 @@ export default function ExhibitorsView({ data }) {
                     strokeWidth={2}
                     dot={{ r: 3.5, fill: '#004B8D', strokeWidth: 1, stroke: '#ffffff' }}
                     activeDot={{ r: 5.5, fill: '#D97706', stroke: '#ffffff', strokeWidth: 2 }}
+                    isAnimationActive={false}
                   />
                   <Tooltip content={<CustomRadarTooltip />} />
                 </RadarChart>
@@ -183,7 +195,7 @@ export default function ExhibitorsView({ data }) {
                   Toque na dimensão para ler as avaliações dos estandes
                 </p>
               </div>
-              <span className="text-[9px] sm:text-[10px] font-bold text-fecomercio-blue bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full shrink-0">
+              <span className="no-print text-[9px] sm:text-[10px] font-bold text-fecomercio-blue bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full shrink-0">
                 Toque para ver
               </span>
             </div>
@@ -296,12 +308,12 @@ export default function ExhibitorsView({ data }) {
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
                 <XAxis type="number" tick={{ fontSize: 10, fill: '#64748b' }} />
-                <YAxis dataKey="name" type="category" tick={{ fontSize: 10, fill: '#334155' }} width={135} />
+                <YAxis dataKey="name" type="category" tick={{ fontSize: 10, fill: '#334155' }} width={150} />
                 <Tooltip 
                   formatter={(value) => [`${value} empresas`, 'Quantidade']}
                   contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 />
-                <Bar dataKey="count" fill="#004B8D" radius={[0, 6, 6, 0]}>
+                <Bar dataKey="count" fill="#004B8D" radius={[0, 6, 6, 0]} isAnimationActive={false}>
                   {segmentos_expositores.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={index === 0 ? '#059669' : '#004B8D'} />
                   ))}
@@ -333,21 +345,34 @@ export default function ExhibitorsView({ data }) {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={contatos_expositores}
-                margin={{ top: 10, right: 15, left: 0, bottom: 20 }}
+                margin={{ top: 10, right: 15, left: 0, bottom: 35 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#64748b' }} interval={0} angle={-10} textAnchor="end" />
+                <XAxis 
+                  dataKey="name" 
+                  tick={{ fontSize: 10, fill: '#64748b' }} 
+                  interval={0} 
+                  angle={-14} 
+                  textAnchor="end"
+                  height={42}
+                  tickFormatter={(val) => {
+                    if (val && (val.includes('não realizou') || val.includes('Não realizou'))) {
+                      return 'Sem controle formal'
+                    }
+                    return val
+                  }}
+                />
                 <YAxis tick={{ fontSize: 10, fill: '#64748b' }} />
                 <Tooltip 
-                  formatter={(value) => [`${value} empresas`, 'Total']}
+                  formatter={(value, name, item) => [`${value} empresas (${item?.payload?.percent || ''}%)`, item?.payload?.name || name]}
                   contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 />
-                <Bar dataKey="count" fill="#059669" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="count" fill="#059669" radius={[6, 6, 0, 0]} isAnimationActive={false} />
               </BarChart>
             </ResponsiveContainer>
           </div>
 
-          <p className="text-[11px] sm:text-xs text-slate-600 bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+          <p className="text-[11px] sm:text-xs text-slate-600 bg-slate-50 p-2.5 rounded-lg border border-slate-200 mt-2">
             <strong>Oportunidade Operacional:</strong> 9,7% das marcas relataram não ter controle sistematizado de contatos, justificando a implantação de crachás com QR Code.
           </p>
         </div>
