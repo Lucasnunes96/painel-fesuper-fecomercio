@@ -365,25 +365,29 @@ export default function App() {
 
       {/* Institutional Footer (apenas tela) */}
       <footer className="bg-slate-900 text-slate-400 border-t border-slate-800 text-xs py-8 mt-12 no-print">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           
-          <div className="flex items-center gap-4">
-            <div className="bg-white/10 p-2 rounded-lg flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 text-center sm:text-left">
+            <div className="bg-white/10 px-3 py-2 rounded-xl flex items-center justify-center gap-3 shrink-0 border border-white/10 shadow-inner">
               <img 
                 src="/assets/logo_fecomercio.png" 
                 alt="Fecomércio AL" 
-                className="h-7 object-contain brightness-0 invert"
+                className="h-6 sm:h-7 w-auto object-contain brightness-0 invert shrink-0"
               />
-              <div className="h-5 w-px bg-white/20"></div>
+              <div className="h-5 w-px bg-white/20 shrink-0"></div>
               <img 
                 src="/assets/logo_instituto_fecomercio.png" 
                 alt="Instituto Fecomércio AL" 
-                className="h-7 object-contain brightness-0 invert"
+                className="h-6 sm:h-7 w-auto object-contain brightness-0 invert shrink-0"
               />
             </div>
-            <div>
-              <p className="font-bold text-white text-xs">Sistema Fecomércio Sesc Senac & Instituto Fecomércio Alagoas</p>
-              <p className="text-[11px] text-slate-400">Parceria Institucional com a Associação dos Supermercados de Alagoas (ASA)</p>
+            <div className="space-y-0.5">
+              <p className="font-bold text-white text-xs leading-snug">
+                Sistema Fecomércio Sesc Senac & Instituto Fecomércio Alagoas
+              </p>
+              <p className="text-[11px] text-slate-400 leading-tight">
+                Parceria Institucional com a Associação dos Supermercados de Alagoas (ASA)
+              </p>
             </div>
           </div>
 
